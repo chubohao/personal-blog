@@ -517,7 +517,7 @@ textarea.input {
     transition: 0.2s opacity;
 }
 .post .post-img:hover, .post .post-img:focus {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 .post .post-img > img {
     width: 100%;
@@ -979,8 +979,8 @@ textarea.input {
 }
 
 .research {
-    padding-top: 20px;
-    padding-bottom: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .research .research-img > img {
     width: 100%;
@@ -999,4 +999,19 @@ textarea.input {
 .navbar {
     opacity: 1;
     background-color: #0078ff;
+}
+
+.post-other {
+    position: relative;
+}
+
+.post-other .post-img:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: -webkit-gradient(linear, left bottom, left top, from(rgba(33, 38, 49, 0.3)), to(transparent));
+    background: linear-gradient(to top, rgba(33, 38, 49, 0.3) 0%, transparent 100%);
 }
