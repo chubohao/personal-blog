@@ -19,6 +19,6 @@ server.use('/', require('./public/blog/blog'));
 server.use('/ecsk', require('./public/ecsk/ecsk'));
 
 
-console.log("Hello Bohao");
+console.log("Hello Bohao s ");
 
 
