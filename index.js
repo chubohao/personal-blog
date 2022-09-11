@@ -4,9 +4,6 @@ var http = require('http');
 var https = require('https');
 var server = express();
 
-server.use('/', require('./public/blog/blog'));
-server.use('/ecsk', require('./public/ecsk/ecsk'));
-
 // SSL Cert
 const httpsOption = {
   key:fs.readFileSync('./ssl/8274150_www.bohao.de.key'),
@@ -16,6 +13,11 @@ const httpsOption = {
 // HTTP and HTTPS Listen
 http.createServer(server).listen(80);
 https.createServer(httpsOption, server).listen(443);
+
+
+server.use('/', require('./public/blog/blog'));
+server.use('/ecsk', require('./public/ecsk/ecsk'));
+
 
 console.log("Hello Bohao");
 
