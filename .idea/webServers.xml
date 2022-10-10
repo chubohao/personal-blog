@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="62454543-d148-4154-9e5e-5cd299dd44ba" name="google">
+        <fileTransfer rootFolder="/home/bohao_chu" accessType="SFTP" host="bohao.de" port="22" sshConfigId="5f20a6c3-2334-41dd-aa8a-903c41e66a0d" sshConfig="bohao_chu@bohao.de:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -1,8 +1,8 @@
-var express = require('express')
+var server = require('express')()
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
-var server = express();
+const express = require("express");
 
 // SSL Cert
 const httpsOption = {
@@ -14,11 +14,9 @@ const httpsOption = {
 http.createServer(server).listen(80);
 https.createServer(httpsOption, server).listen(443);
 
-
 server.use('/', require('./public/blog/blog'));
 server.use('/ecsk', require('./public/ecsk/ecsk'));
 
-
-console.log("Hello Bohao s ");
+console.log("WELCOME TO BOHAO BLOG SERVER");
 
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCENE 350</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/350.css">
+    <script src="js/echarts.min.js"></script>
+    <link rel="shortcut icon" href="#">
+
+    <script type="importmap">{
+        "imports": {
+            "three": "https://unpkg.com/three@0.138.0/build/three.module.js",
+            "OrbitControls": "https://unpkg.com/three@0.138.0/examples/jsm/controls/OrbitControls.js",
+            "GLTFLoader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/GLTFLoader.js",
+            "OBJLoader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/OBJLoader.js",
+            "MTLLoader": "https://unpkg.com/three@0.138.0/examples/jsm/loaders/MTLLoader.js",
+            "GUI": "https://unpkg.com/three@0.138.0/examples/jsm/libs/lil-gui.module.min"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="activity">
+        <div class="act" id="spin">
+            <div class="env"></div>
+            <div class="name">SPIN</div>
+        </div>
+        <div class="act" id="upward">
+            <div class="env"></div>
+            <div class="name">UPWARD</div>
+        </div>
+        <div class="act" id="downward">
+            <div class="env"></div>
+            <div class="name">DOWNWARD</div>
+        </div>
+    </div>
+    <div id='me'>
+        <div class="cts" id="mic"></div>
+        <div class="cts" id="acc_x"></div>
+        <div class="cts" id="acc_y"></div>
+        <div class="cts" id="acc_z"></div>
+        <div class="cts" id="eye"></div>
+        <div class="cts ctss" id="laser"></div>
+        <div class="cts ctss" id="bme"></div>
+        <div class="cts ctss" id="color"></div>
+        <div class="cts ctss" id="mag"></div>
+    </div>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+    <script type="module" src="350.js"></script>
+</html>
