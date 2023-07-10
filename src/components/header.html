@@ -1,0 +1,60 @@
+<div class="bg-dark">
+    <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 py-4">
+                <h4 class="text-white">MOTTO</h4>
+                <p class="text-light">
+                    "We don’t get a chance to do that many things, and every one should be really excellent. Because this is our life. Life is brief, and then you die, you know? And we’ve all chosen to do this with our lives. So it better be damn good. It better be worth it."
+                    <footer class="blockquote-footer"> <cite title="Source Title">Steve Jobs</cite></footer>
+                </p>
+            </div>
+            <div class="col-md-3 offset-md-3 py-4">
+                <h4 class="text-white">CONTACT</h4>
+                <ul class="">
+                    <li><a href="#" class="text-light">bohao.chu@qq.com</a></li>
+                    <li><a href="#" class="text-light">+49 15202140197</a></li>
+                    <li><a href="#" class="text-light">https://www.bohao.de</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row align-c">
+            <ul class="nav nav-pills">
+                <li class="nav-item d-sm-none"><a href="/#CURRENT_WORK" class="nav-link text-white">DOING</a></li>
+                <li class="nav-item d-md-none"><a href="/#MACHINE_LEARNING" class="nav-link text-white">MACHINE LEARNING</a></li>
+                <li class="nav-item d-lg-none"><a href="/#EMBEDDED_SYSTEM" class="nav-link text-white">EMBEDDED SYSTEM</a></li>
+                <li class="nav-item d-lg-none"><a href="/#SOFTWARE" class="nav-link text-white">WEB</a></li>
+                <li class="nav-item d-lg-none"><a href="/#FPGA" class="nav-link text-white">FPGA</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <!--NAVBAR-->
+    <nav class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a href="/#" class="navbar-brand p-0 m-0 d-inline-block"><i class="bi bi-house" style="font-size: 27px"></i></a>
+            <ul class="nav nav-pills m-0 p-0">
+                <li class="nav-item"><a href="/#ABOUT" class="LINK active nav-link text-white p-1 me-3">ABOUT</a></li>
+                <li class="nav-item"><a href="/#RESEARCH" class="LINK nav-link text-white p-1 me-3">RESEARCH</a></li>
+                <li class="nav-item d-none d-sm-block"><a href="/#CURRENT_WORK" class="LINK nav-link text-white p-1 me-3">DOING</a></li>
+                <li class="nav-item d-none d-md-block"><a href="/#MACHINE_LEARNING" class="LINK nav-link text-white p-1 me-3">MACHINE LEARNING</a></li>
+                <li class="nav-item d-none d-lg-block"><a href="/#EMBEDDED_SYSTEM" class="LINK nav-link text-white p-1 me-3">EMBEDDED SYSTEM</a></li>
+                <li class="nav-item d-none d-lg-block"><a href="/#SOFTWARE" class="LINK nav-link text-white p-1 me-3">WEB</a></li>
+                <li class="nav-item d-none d-lg-block"><a href="/#FPGA" class="LINK nav-link text-white p-1 me-3">FPGA</a></li>
+            </ul>
+
+            <button class="btn btn-xs d-inline-block p-0 m-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <!--end navbar-->
+</div>
+
+<script>
+    $(".nav a").on("click", function() {
+      $(".nav a").removeClass("active");
+      $(this).addClass("active");
+    });
+</script>
