@@ -28,7 +28,7 @@
 
 		<main>
 			<div class="section px-0">
-				<div id="post-header" class="page-header pt-5 py-md-5" style="background-image: url('assets/img/cvae/bg.png');background-position-x: 95%;">
+				<div id="post-header" class="page-header pt-5" style="background-image: url('assets/img/cvae/bg.png');background-position-x: 95%;">
 					<div class="container">
 						<div class="row">
 							<div class="col-md-10 col-sm-11 post-meta">
@@ -61,121 +61,166 @@
 					<!-- row -->
 					<div class="row">
 						<!-- POST MAIN -->
-						<div class="col-md-6 pe-md-4">
+						<div class="col-md-8 pe-md-4">
 
 							<h3>INTRODUCTION</h3>
 
 							<div class="section-row">
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/cvae/1.png" alt="" width="90%">
-									<figcaption class="my-3">
-										<strong>Figure 1.</strong> The relationship between the complexity of <br> networking and deployment and the number of sensors or sensing purposes.
-									</figcaption>
+									<p class="px-3 text-center">
+										<small><strong>Figture 1.</strong> Illustration of a scenario where three people meet and want to choose a path to achieve their goals, while avoiding a collision. Based on the observed trajectories our model will produce multiple possible different predicted trajectories.</small>
+									</p>
+									
 								</figure>
 							</div>
 
 							<div class="row">
+								<h4>
+									BACKGROUND
+								</h4>
 								<p>
-									Predicting realistic human movement is an important task to devise safe autonomous robots in society. Human movement is generally influenced by social rules, most importantly avoiding collisions. In order to predict realistic human movement, the predictions need to follow those social rules. We introduce a new generative approach to predict human trajectories that are collision-free, multimodal and realistic, as they achieve high accuracy in densely crowded datasets. We achieve this by using a pooling module, that encodes human interaction and scene context and further enforce our goal by using a collision loss. The second aspect, namely multimodality is important as human movement is stochastic. To generate multimodal outputs our model uses a Conditional Variational Auto Encoder (CVAE). A CVAE can generate different predictions for the same input, by reducing the dimension of the input into a latent space, thus making the predictions multimodal. Based on this our model can predict a variety of possible future steps and also a distribution, leading to safer robot movement planning in application. We achieve concrete future steps for evaluation by sampling from the generated distribution. Many earlier approaches did not take human collision into account making their predictions unrealistic. Our model achieves comparable results in evaluation while also accounting for the important features of multimodality and collision-avoidance in human trajectory prediction.
+									As there is more and more work on autonomous robots in society, pedestrian trajectory prediction became an essential topic. It is definitely an important step in the task of developing intelligent systems to ensure the interactions between smart products and humans to be more efficient and safer. Trajectory prediction is about generating the future sequence of pedestrians locations based on their past and present positions. However, it's not an easy task for intelligent systems to predict trajectories automatically as many influences have to be considered.
+								</p>
+								<p>
+
+								</p>
+								<h4>
+									MOTIVATION
+								</h4>
+								<p>
+									Predicting realistic human movement is an important task to devise safe autonomous robots in society. Human movement is generally influenced by social rules, most importantly avoiding collisions. In order to predict realistic human movement, the predictions need to follow those social rules. We introduce a new generative approach to predict human trajectories that are collision-free, multimodal and realistic, as they achieve high accuracy in densely crowded datasets. We achieve this by using a pooling module, that encodes human interaction and scene context and further enforce our goal by using a collision loss. 
+								</p>
+								<p>
+									The second aspect, namely multimodality is important as human movement is stochastic. To generate multimodal outputs our model uses a Conditional Variational Auto Encoder (CVAE). A CVAE can generate different predictions for the same input, by reducing the dimension of the input into a latent space, thus making the predictions multimodal. 
+								</p>
+								<p>
+									Based on this our model can predict a variety of possible future steps and also a distribution, leading to safer robot movement planning in application. We achieve concrete future steps for evaluation by sampling from the generated distribution. Many earlier approaches did not take human collision into account making their predictions unrealistic. Our model achieves comparable results in evaluation while also accounting for the important features of multimodality and collision-avoidance in human trajectory prediction.
 								</p>
 
 								<h3 class="mt-4">METHOD</h3>
-								<div class="row text-center">
-									<figure class="figure-img col-12">
-										<img class="img-responsive" src="assets/img/cvae/m.jpeg" alt="" width="99%">
-										<figcaption>
-										<strong>TABLE I.</strong> EVALUATION OF OUR 3 MODEL ADAPTIONS ON ALL SUBDATASETS COMPARED TO BASELINE LSTM. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.
-									</figcaption>
-									</figure>
-								</div>
 
 								<p>
 									The presented model is called CoLoss-CVAE. The structure of CoLoss-CVAE is depicted in Figure 2. It consists of an RNN-Encoder-Decoder-Framework, realized by a Long-Short-Term-Memory (LSTM), a Conditional Variational Auto Encoder (CVAE) to predict a conditional distribution and a pooling module to encode human interaction, also called scene context. The inputs to our model are given by OBS and P RED_GT as described above. Both of those inputs are then encoded into LSTM hidden states.
 								</p>
 
-								<h6><i>LSTM ENCODER</i></h6>
+								<div class="row text-center">
+									<figure class="figure-img col-12">
+										<img class="img-responsive" src="assets/img/cvae/m.jpeg" alt="" width="99%">
+									</figure>
+									<p class="px-3 text-center">
+										<small><strong>Figture 2.</strong> The structure of the CoLoss-CVAE model. Inputs are the observed trajetrories OBS and the groundtruth future PRED GT. Those form the input x and condition c, that are input to the CVAE to the latent space distribution and sample z by reparameterization trick. The last position, social context from pooling module and latent variable z are input to the Decoder. The Decoder predicts a normal distribution of predicted future steps, and from this samples the output prediction p.</small>
+									</p>
+								</div>
+
+								
+
+								<h4>LSTM ENCODER</h4>
 								<p>
 									The LSTM-Encoder autoregressively encodes the history of each agents trajectories into a single LSTM hidden state. There is one LSTM to encode the observed trajectories into the condition c and one LSTM to encode the groundtruth future trajetories into the input x. Both LSTMs work similarly to the described Encoder-LSTM below:
 								</p>
 
-								<h6><i>CVAE</i></h6>
+								<h4>CVAE</h4>
 								<p>
 									A CVAE is used to generate diverse multimodal outputs for the same input, as deterministic approaches would not suffice to represent realistic human behaviour. The goal of a CVAE is to learn the distribution P (y|c) of the output y given the condition c. This is done by using a latent variable z. The latent variable is sampled from latent space Z and the distribution of Z is learned by the CVAE. In training the distribution Q(z|x, c), called the posterior, is learned. This is the distribution of the latent space Z, which the latent variable z is sampled from. The latent space Z is of lower dimension than the input space and is used to encode input features. By encoding the input to a lower space, a one-to- many mapping is achieved in the output when generating a y from given z, making the model multimodal.
 								</p>
-
-								<h6><i>POOLING MODULE</i></h6>
+								<p>
+									In application the groundtruth input x is not given, so the posterior Q(z | x,c) can not be used in application or testing. To solve this problem another distribution Q(z | c), the prior, that is only dependent on c, is introduced. In our model we compare using a fixed standard gaussian distribution N(0, 1) against using an adjustable prior of Q(z | c) = N(0,1). The prior is learned to be similar to the posterior Q(z | x, c). Both distributions are implemented as gaussian distributions, realized by two fully-connected layers, which resemble their mean μ and variance σ. The similarity of the prior and posterior is achieved by reducing the distance between the two distributions in training. The common approach is to use Kullback-Leibler-Divergence (KLD), but in it was shown, that better results can be achieved using the Maximum-Mean Discrepancy (MMD). In our work we will compare the results our model achieves by the using KLD and MMD. 
+								</p>
+								<h4>POOLING MODULE</h4>
 								<p>
 									The pooling module introduced in [12] encodes social interactions between the current person i and all neighbors j in the scene. It uses the current distance dt i,j between the person i and all their neighbors, as well as their current Decoder-LSTM hidden-states. The Decoder-LSTM is further explained in chapter. The advantage of also using the LSTM hidden-state is, that it also encodes previous movement, as not only the current distance is relevant in collision avoidance. The relation of neighbors is then computed by a Multi-Layer-Perceptron, as follows:
 								</p>
+								<p>
+									...
+								</p>
 
+								<h3 class="mt-4">RESULT</h3>
+								<p>
+									In this Section, we evaluate our model on two public available datasets ETH \cite{pellegrini2010improving} and UCY. These two datasets include huge numbers of  pedestrian trajectories with interactions between multiple people from real world scenarios. These datasets are based on 4 different scenes - ETH \& HOTEL (from ETH) and UNIV \& ZARA (from UCY), which consist of $1536$ pedestrians in total. The datasets are divided into the 5 subdatasets ETH, HOTEL, UNIV, ZARA1 and ZARA2. Each of them is further divided into training set, validation set and test set. We use a version, which is unified by Gupta et al. so that all trajectories are in the same metric world coordinate system and interpolate to obtain the trajetories respective positions at every timestep equal to 0.4s. As same as previous work, the subdataset is evaluated using the leave-one-out approach. Four subdatasets are used for training and the remaining subdataset is used for testing.
+								</p>
+								<div class="row text-center">
+									<figure class="figure-img col-12">
+										<img class="img-responsive" src="assets/img/cvae/t1.png" alt="" width="105%">
+										<p class="px-3 text-center">
+											<small><strong>TABLE I.</strong> EVALUATION OF OUR 3 MODEL ADAPTIONS ON ALL SUBDATASETS COMPARED TO BASELINE LSTM. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.</small>
+										</p>
+									</figure>
+
+
+
+									<figure class="figure-img col-12">
+										<img class="img-responsive" src="assets/img/cvae/t2.png" alt="" width="105%">
+										<p class="px-3 text-center">
+											<small><strong>TABLE II.</strong> EVALUATION OF OUR BEST MODEL ON ALL SUBDATASETS COMPARED TO 4 DIFFERENT BASELINE MODELS. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.</small>
+										</p>
+									</figure>
+								</div>
+
+
+								<h3 class="mt-4">KEYWORDS</h3>
+								<p class="text-dark">
+									<strong>
+										Multimodal Human Trajectory Prediction,  Collision-Free, LSTM, CVAE, KLD, Standard Gaussian Distribution.
+									</strong>
+								</p>
 							</div>
 
 						</div>
 
 						<!-- POST ASIDE -->
-						<div class="col-md-6 ps-md-4">
+						<div class="col-md-4 ps-md-4">
 							<div class="row mb-5">
-								<h3 class="mt-4">EXPERIMENT</h3>
-								<div class="row text-center">
-									<figure class="figure-img col-12">
-										<img class="img-responsive" src="assets/img/cvae/t1.png" alt="" width="100%">
-										<figcaption>
-										<strong>TABLE I.</strong> EVALUATION OF OUR 3 MODEL ADAPTIONS ON ALL SUBDATASETS COMPARED TO BASELINE LSTM. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.
-									</figcaption>
-									</figure>
-
-
-
-									<figure class="figure-img col-12">
-										<img class="img-responsive" src="assets/img/cvae/t2.png" alt="" width="100%">
-										<figcaption>
-										<strong>TABLE II.</strong> EVALUATION OF OUR BEST MODEL ON ALL SUBDATASETS COMPARED TO 4 DIFFERENT BASELINE MODELS. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.
-									</figcaption>
-									</figure>
-								</div>
-
+								<h3>MATERIALS</h3>
+								<h4>
+									EXPERIMENTATION
+								</h4>
 								<p>
-									In this Section, we evaluate our model on two public available datasets ETH [13] and UCY [9]. These two datasets include huge numbers of pedestrian trajectories with inter- actions between multiple people from real world scenarios. These datasets are based on 4 different scenes - ETH & HOTEL (from ETH) and UNIV & ZARA (from UCY), which consist of 1536 pedestrians in total. The datasets are divided into the 5 subdatasets ETH, HOTEL, UNIV, ZARA1 and ZARA2. Each of them is further divided into training set, validation set and test set. We use a version, which is unified by Gupta et al. [13] so that all trajectories are in the same metric world coordinate system and interpolate to obtain the trajetories respective positions at every timestep equal to 0.4s. As same as previous work, the subdataset is evaluated using the leave-one-out approach. Four subdatasets are used for training and the remaining subdataset is used for testing.
+									As previously explained our model predicts a distribution of possible future trajectories. From this distribution one trajectory is randomly sampled as our future prediction. These predictions are visualized and evaluated against CoLoss-GAN model in Figure 3. We visualize the Best-of-20 trajectories generated by our CoLoss-CVAE for three scenes and compare them accordingly with the CoLoss-GAN.
 								</p>
 
+								<figure class="figure-img">
+									<img class="img-responsive" src="assets/img/cvae/Qualitative Comparison_new.png" alt="" width="101%">
+								</figure>
+								
+								<p class="px-3 text-center">
+									<small><strong>Figure 3.</strong> Visual comparison between our CoLoss-CVAE-1V-20 and the CoLoss-GAN-1V-20 in three different scenarios from the ETH dataset. The circles represent the assumed circular outline of a person.</small>
+								</p>
+
+							
+								<p>
+									The predictions of both models are very similar and both manage to avoid collisions completely in the depicted predictions. This may be due to the simple setting of the selected scenes. The maximum of persons in one scene is 5 in the last scene and all of them are moving almost parallel in the same direction. Still in reality they move closer to each other in the last steps, which could not be predicted by both models. Also one person in scene 1 takes a complicated curvy route, that could not be predicted by the models. So despite being collision-free and close to reality, not all movement of real humans can be predicted as the human movement is of complicated stochastic nature. Because of this our goal should not be to accurately predict each step of a human, but to predict a highly probable possible future region, defined by a distribution of future positions. In order to visualize the size of these distributions we visualize the multimodal predictions of our model.
+								</p>
+								
+
 								<div class="row text-center">
-									<figure class="figure-img col-4">
+									<figure class="figure-img col-6">
 										<img class="img-responsive" src="assets/img/cvae/p1.png" alt="" width="99%">
 									</figure>
-									<figure class="figure-img col-4">
+									<figure class="figure-img col-6">
 										<img class="img-responsive" src="assets/img/cvae/p2.png" alt="" width="99%">
 									</figure>
-									<figure class="figure-img col-4">
+									<figure class="figure-img col-6">
 										<img class="img-responsive" src="assets/img/cvae/p3.png" alt="" width="99%">
 									</figure>
 
-									<figure class="figure-img col-4">
+									<figure class="figure-img col-6">
 										<img class="img-responsive" src="assets/img/cvae/p4.png" alt="" width="99%">
 									</figure>
-									<figure class="figure-img col-4">
+									<figure class="figure-img col-6">
 										<img class="img-responsive" src="assets/img/cvae/p5.png" alt="" width="99%">
 									</figure>
-									<figure class="figure-img col-4">
+									<figure class="figure-img col-6">
 										<img class="img-responsive" src="assets/img/cvae/p6.png" alt="" width="99%">
 									</figure>
-									<figcaption>
-										<strong>TABLE I.</strong> EVALUATION OF OUR 3 MODEL ADAPTIONS ON ALL SUBDATASETS COMPARED TO BASELINE LSTM. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.
-									</figcaption>
+									<p class="px-3 text-center">
+										<small><strong>Figure 4.</strong> Visual representation of 5 possible path predictions. This shows the multimodal nature of our predictions, with low variety.</small>
+									</p>
 
 								</div>
 
-
 								<p>
-									First we compared the results of our different models to see which architecture leads to the best results. As a baseline we used a basic LSTM-Encoder-Decoder trained with LN LL and LCOL called LSTM-NLL-Coll. The evaluation is shown in Table I.
-
-								</p>
-
-								<p>
-									This evaluation showed that our model CoLoss-CVAE-MMD-N(0,1) using MMD unexpectedly performed worse than our Baseline-LSTM. We implemented it due to the good performance the MMD achieved in [17]. We assume this bad performance resulting from MMD not being suited for distributions in particular, but for stacks of data. The computation of MMD is based on comparing all of the moments in two data stacks. To use MMD it is possible to treat the distributions like data stacks. Nevertheless the implementation in [17] lead to good results, eventually by a different way to implement MMD to learn the prior
-								</p>
-
-								<p>
-									Our model CoLoss-CVAE-KLD-N(0,1) achieved the best results in average ADE and FDE, while average ACT=0.021 was still comparable to our best result ACT=0.017, that was achieved by CoLoss-CVAE-KLD-PRIOR. This results also were astonishing, as we implemented the Prior-Net to achieve a prior distribution of higher quality as also shown in [17]. As in this model a second, more complex, distribution has to be learned, we trace back the results to this expanded architecture, making the training more com- plex. Nevertheless our model CoLoss-CVAE-KLD-N(0,1) achieved good results, compared in Table II to state-of-the- art models. CoLoss-CVAE will in further context refer to our best performing model CoLoss-CVAE-KLD-N(0,1).
+									Figure 4 shows that 5 random samples are taken from the latent space, resulting in 5 different trajectories according to the same condition (observed trajectories). On the basis of which we can evaluate the diversity of the predictions of our model. The predictions are diverse and multiple possible future trajectories can be seen. But still the predictions are close to each other, but become more diverse at each time step. So the next step of a person can be predicted very accurately while the further in the future the less certain the position becomes. This shows that our model can predict a set of 12 future distributions, resembling possible areas of the agents future position. We further evaluated the prediction of distributions in Figure 5 by plotting 20 possible position for each predicted timestep. The higher amount of plotted predictions in combinations with omitting the path connections leads to a rough outline of the predicted distributions. The increase in variance over timesteps can be observed neatly. The last prediction, showing a single agent without any neighbors, obtains a much higher variance, containing more outliers. This can be attributed to the fact, that no other agents in the scene restrict the movement of the agent.
 								</p>
 
 								<div class="row text-center">
@@ -198,11 +243,21 @@
 									<figure class="figure-img col-4">
 										<img class="img-responsive" src="assets/img/cvae/e6.png" alt="" width="99%">
 									</figure>
-									<figcaption>
-										<strong>TABLE I.</strong> EVALUATION OF OUR 3 MODEL ADAPTIONS ON ALL SUBDATASETS COMPARED TO BASELINE LSTM. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.
-									</figcaption>
 
+
+									<p class="px-3 text-center">
+										<small><strong>Figure 5.</strong> Visual representation of 20 sampled predictions at each predicted timestep. This shows the rough distribution of probable positions at each prediction step.</small>
+									</p>
 								</div>
+
+								<h4>
+									CONCLUSION
+								</h4>
+								<p>
+									In this work, we present a generative approach to predict multimodal trajectories that are accurate and collision-free. Our presented model, called CoLoss-CVAE, achieves those goals by learning the latent distribution of pedestrian trajectories. In particular, we combine a CVAE with a recurrent neural network(RNN) encoder-decoder framework. So we can use the observed trajectories as a condition to produce possible predictions based on prior movement. In addition, the adoption of pooling-module and collision-loss from makes pedestrian trajectories more conform to physical and social plausibility by avoiding collisions. Our model compares to state-of-the-art models in performance in metrics of ADE, FDE and ACT. The evaluation holds on the realistic and crowded datasets and the visualization shows that the predicted trajectories are roughly the same as groundtruth. The qualitative evaluation showed that our model is able to predict an accurate distribution of future positions, that is limited in size and variation. In real-world application the usage of this prediction is of greater benefit, as it can enable robots to avoid regions of highly likely human positions.
+								</p>
+
+
 							</div>
 
 

@@ -7,19 +7,11 @@ const https = require('https');
 
 app.use(express.static(__dirname + '/src'));
 
-/*
 
-const httpsOption = {
-  key:fs.readFileSync('./public/ssl/8274150_www.bohao.de.key'),
-  cert:fs.readFileSync('./public/ssl/8274150_www.bohao.de.pem')
-};
-
-https.createServer(httpsOption, app).listen(443);
-*/
 
 
 // HTTP and HTTPS Listen
-http.createServer(app).listen(80);
+http.createServer(app).listen(8080);
 
 app.get('/', function(req, res) {
     res.sendFile(path.resolve(__dirname, "index.html"));

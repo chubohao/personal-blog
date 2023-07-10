@@ -69,9 +69,9 @@
 							<div class="section-row">
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecsk/comlexity_and_sensors.png" alt="" width="100%">
-									<figcaption class="my-3">
-										<strong>Figure 1.</strong> The relationship between the complexity of <br> networking and deployment and the number of sensors or sensing purposes.
-									</figcaption>
+									<p class="px-3 pt-3 text-center">
+										<small><strong>Figure 1.</strong> The relationship between the complexity of <br> networking and deployment and the number of sensors or sensing purposes.</small>
+									</p>
 								</figure>
 							</div>
 
@@ -87,21 +87,29 @@
 									MOTIVATION
 								</h4>
 								<p>
-									123
+									With the rapid increase in computing power of end devices, many machine learning models are popular for inference on end devices. With the help of real-time data from sensors, the activities that are happening in the environment can be analyzed and recognized in real-time, which has a lot of demand and promise in the field of autonomous driving, sports, healthcare, etc.
 								</p>
 
 								<h3 class="mt-4">METHOD</h3>
 
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/ecsk/system_architecture.png" alt="" width="100%">
+									<p class="px-3 pt-3 text-center">
+										<small><strong>Figure 2.</strong> System Architecture of ECSK.</small>
+									</p>
+								</figure>
+
+								
+
 								<p>
 									In this work, we explore the concept of <strong>Edge Computing Sensor Kit (ECSK)</strong> based on the former work. We designed a new type of hardware that integrates several different types of sensors, including a camera and a microphone, on a small board, while adding a powerful processor and Tensor Processing Unit, which allows algorithmic models and applications to run directly on it instead of on a remote server. Each sensor has a task channel, and multiple sensors can independently perform data sampling and feature extraction with concurrency. Feature data from different sensor channels are used to achieve real-time recognition of general activities in the environment (e.g., robotic arm movement) by a machine learning based multi-sensor information fusion algorithm.
-
 								</p>
 
 								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/ecsk/system_architecture.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 2.</strong> The relationship between the complexity
-									</figcaption>
+									<img class="img-responsive" src="assets/img/ecsk/Multi Activities Recognition.png" alt="" width="100%">
+									<p class="px-3 pt-3 text-center">
+										<small><strong>Figure 3.</strong> Concurrent multiple activity recognition in a single scene.</small>
+									</p>
 								</figure>
 
 
@@ -109,13 +117,8 @@
 									RESULT
 								</h3>
 								<p>
-									After deploying ECSK in many types of scenarios (e.g. industrial scenarios), the results show that the complexity of networking and deployment is reduced compared to SPS and DMS, and operators only need to power on the ECSK to make it work without any other additional operations, and the accuracy and robustness of real-time activity recognition are improved due to effective multi-sensor information fusion algorithm. In addition, compared to IMST, the transmission of large amounts of raw data between it and the remote servers is no longer required, which improves system responsiveness and reduces the risk of data compromise and intrusion. Further, the user experience is enhanced by the combination of ECSK with data visualization and digital twin technology.
+									After completing the model training, we deployed our system in six real scenarios, and the deployment location of ECSK. In each scenario, ECSK continued the identification for each real-time activity, and we kept 50 positive and negative examples for each activity to ensure a balanced sample. We counted the confusion matrix, accuracy, precision, recall and F1 score for the 27 activities in scenarios, and finally the F1 score was used as the reference metric. We rounded all the values.
 								</p>
-
-								<p>
-									ECSK can sense, process, and recognize the general activities happening in the environment in real-time like a human, which will have a positive impact on the future IoT, Industry 4.0, Autonomous Driving, Health Care, and other related fields.
-								</p>
-
 								<div class="row text-center">
 									<figure class="figure-img col-2 p-0 pe-1">
 									<img class="img-responsive" src="assets/img/ecsk/cnc.jpg" alt="" width="100%">
@@ -142,12 +145,31 @@
 									</figure>
 
 
-									<figcaption class="py-4">
-										<strong>Figure 2.</strong> The relationship between the complexity
-									</figcaption>
+									<p class="px-3 pt-3 text-center">
+										<small><strong>Figure 4.</strong> Six different evaluation scenarios.</small>
+									</p>
 
 								</div>
+								
 
+								<p>
+									Based on the results, it can be seen that for each activity the F1 scores for recognition are above 80%, mostly above 95%, with an average value of 94%. A few activities have lower F1 scores (e.g., activity F in the CNN machine scenario has a final F1 score of only 82%) due to the fact that the activity triggers only a small number of sensors and too little sensor information thus leading to poor recognition results. For such an activity, we can improve the results by adding more sensors or modifying the deployment location, which may be done in our next phase of work.
+								</p>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/ecsk/result.png" alt="" width="100%">
+									<p class="px-3 text-center">
+										<small><strong>Figure 5.</strong> 27 activities in 6 scenarios and the corresponding signal channel weights.</small>
+									</p>
+								</figure>
+								<p>
+									After deploying ECSK in many types of scenarios (e.g. industrial scenarios), the results show that the complexity of networking and deployment is reduced compared to SPS and DMS, and operators only need to power on the ECSK to make it work without any other additional operations, and the accuracy and robustness of real-time activity recognition are improved due to effective multi-sensor information fusion algorithm. In addition, compared to IMST, the transmission of large amounts of raw data between it and the remote servers is no longer required, which improves system responsiveness and reduces the risk of data compromise and intrusion. Further, the user experience is enhanced by the combination of ECSK with data visualization and digital twin technology.
+								</p>
+
+								<p>
+									ECSK can sense, process, and recognize the general activities happening in the environment in real-time like a human, which will have a positive impact on the future IoT, Industry 4.0, Autonomous Driving, Health Care, and other related fields.
+								</p>
+								
 
 
 								<h3 class="mt-4">
@@ -165,43 +187,83 @@
 
 						<!-- POST ASIDE -->
 						<div class="col-md-4">
-							<div class="row mb-5">
-								<h3>HARDWARE</h3>
-								<p>
-									ECSK can sense, process, and recognize the general activities happening in the environment in real-time like a human, which wi,ECSK can sense, process, and recognize the general activities happening in the environment in real-time like a
-								</p>
+							<div class="row mb-3">
+								<h3>MATERIALS</h3>
+
+								<h4>HARDWARE</h4>
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecsk/sensor_board_layout.png" alt="" width="100%">
+									<p class="px-3 pt-3 text-center">
+										<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
+									</p>
 								</figure>
 
 								<p>
-									ECSK can sense, process, and recognize the general activities happening in the environment in real-time like a ECSK can sense, process, and recognize the general activities happening in the environment in real-time like a
+									To facilitate the deployment of our Edge Computing Sensor Kit, we designed it to be as small as possible without compromising its performance. In the end, the size of our board was kept to 40 mm wide and 55 mm long, which is smaller than a bank card. 
 								</p>
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecsk/Top.jpg" alt="" width="100%">
+									<p class="px-3  pt-3 text-center">
+										<small><strong>Figure 7.</strong> Photo of Edge Computing Sensor Kit.</small>
+									</p>
 								</figure>
 							</div>
+							
+							<div class="row mb-3">
+								<h4>DIGITAL TWIN</h4>
+								<p>
+									A digital twin is a virtual model that is designed to accurately reflect a physical object. For example, a wind turbine is equipped with various sensors related to important functional areas that generate data about different aspects of the physical object’s performance, such as energy output, temperature, weather conditions, etc. This data is then forwarded to a processing system and applied to a digital copy.
+								</p>
+								<figure class="figure-img text-center col-6">
+									<img class="img-responsive" src="assets/img/ecsk/cnc3D.png" alt="" width="100%">
+								</figure>
+								<figure class="col-6">
+									<img class="img-responsive" src="assets/img/ecsk/3053D.png" alt="" width="100%">
+								</figure>
+								<p class="px-3  pt-3 text-center">
+									<small><strong>Figure 8.</strong> Industrial machine tools in the virtual world.</small>
+								</p>
+							</div>
 
+							<div class="row">
+								<h4>EVALUATION</h4>
+								<figure class="">
+									<img class="img-responsive" src="assets/img/ecsk/table-1.png" alt="" width="100%">
+									<img class="img-responsive" src="assets/img/ecsk/table-2.png" alt="" width="100%">
+									<img class="img-responsive" src="assets/img/ecsk/table-3.png" alt="" width="100%">
+									<img class="img-responsive" src="assets/img/ecsk/table-4.png" alt="" width="100%">
+									<img class="img-responsive" src="assets/img/ecsk/table-5.png" alt="" width="100%">
+									<img class="img-responsive" src="assets/img/ecsk/table-6.png" alt="" width="100%">
+								</figure>
 
+								<p class="px-3  pt-3 text-center">
+									<small><strong>Table 1-6.</strong> Model evaluation results in 6 scenarios.</small>
+								</p>
+							</div>
 
-							<div class="row mb-5">
-								<h3>EXPERIMENT</h3>
+							<div class="row mb-3">
+								<h4>EXPERIMENT</h4>
 								<p class="text-break">
 									In traditional IoT scenarios, Specific-Purpose Sensor (SPS) or Distributed Multi-Sensor (DMS) are usually deployed directly on different locations or objects to sense diverse purposes.
 								</p>
-								<figure>
+
 								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/Z8w50vlm_s4" style="border:none" allowfullscreen></iframe>
-								<figcaption>
-									Video 1. Someone famous in Source Title
-								</figcaption>
-								</figure>
+								<p class="px-3  pt-3 text-center">
+									<small><strong>Video 1.</strong> Someone famous in Source Title.</small>
+								</p>
+
 
 
 								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/PNvg8WORgbg" frameborder="0" allowfullscreen></iframe>
+								<p class="px-3  pt-3 text-center">
+									<small><strong>Video 2.</strong> Someone famous in Source Title.</small>
+								</p>
 							</div>
 
-							<div class="row mb-5">
-								<h3>ARCHIVE</h3>
+							
+
+							<div class="row mb-3">
+								<h4>ARCHIVE</h4>
 								<ul>
 									<li><a href="#">Wei, Fuyin, Fei Xiang, Bohao Chu, and Bernd Noche. "Feature fusion algorithm based on modular scalable integrated sensor behavior recognition." Logistics Journal: Proceedings 2021, no. 17 (2021).</a></li>
 								</ul>
