@@ -496,7 +496,7 @@ textarea.input {
     transition: 0.2s opacity;
 }
 .post .post-img:hover, .post .post-img:focus {
-    opacity: 0.8;
+    opacity: 0.6;
 }
 .post .post-img > img {
     width: 100%;
@@ -570,7 +570,7 @@ textarea.input {
     bottom: 0;
     top: 0;
     background: -webkit-gradient(linear, left bottom, left top, from(rgba(33, 38, 49, 0.1)), to(transparent));
-    background: linear-gradient(to top, rgba(33, 38, 49, 0.1) 0%, transparent 100%);
+    background: linear-gradient(to top, rgba(33, 38, 49, 0.1) 10%, transparent 100%);
 }
 .post.post-thumb .post-body {
     position: absolute;
@@ -581,8 +581,6 @@ textarea.input {
 .post.post-thumb .post-body button {
     margin-right: 2px;
 }
-
-
 
 .post.post-thumb .post-meta .post-date {
     color: #FFFFFF;

@@ -54,6 +54,30 @@ app.get('/dator', function(req, res) {
     res.sendFile(path.resolve(__dirname, "src/dator.html"));
 })
 
+app.get('/linuxGateway', function(req, res) {
+    res.sendFile(path.resolve(__dirname, "src/linuxGateway.html"));
+})
+
+app.get('/wardrobe', function(req, res) {
+    res.sendFile(path.resolve(__dirname, "src/wardrobe.html"));
+})
+
+app.get('/car', function(req, res) {
+    res.sendFile(path.resolve(__dirname, "src/car.html"));
+})
+
+app.get('/digitalTwin', function(req, res) {
+    res.sendFile(path.resolve(__dirname, "src/digitalTwin.html"));
+})
+
+app.get('/dataStream', function(req, res) {
+    res.sendFile(path.resolve(__dirname, "src/dataStream.html"));
+})
+
+app.get('/hazer', function(req, res) {
+    res.sendFile(path.resolve(__dirname, "src/hazer.html"));
+})
+
 console.log("WELCOME TO BOHAO BLOG SERVER");
 
 
