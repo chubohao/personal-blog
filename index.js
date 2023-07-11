@@ -11,7 +11,7 @@ app.use(express.static(__dirname + '/src'));
 
 
 // HTTP and HTTPS Listen
-http.createServer(app).listen(8080);
+http.createServer(app).listen(80);
 
 app.get('/', function(req, res) {
     res.sendFile(path.resolve(__dirname, "index.html"));
