@@ -8,10 +8,8 @@ const https = require('https');
 app.use(express.static(__dirname + '/src'));
 
 
-
-
 // HTTP and HTTPS Listen
-http.createServer(app).listen(8080);
+http.createServer(app).listen(80);
 
 app.get('/', function(req, res) {
     res.sendFile(path.resolve(__dirname, "index.html"));
@@ -76,6 +74,10 @@ app.get('/dataStream', function(req, res) {
 
 app.get('/hazer', function(req, res) {
     res.sendFile(path.resolve(__dirname, "src/hazer.html"));
+})
+
+app.get('/sier', function(req, res) {
+    res.sendFile(path.resolve(__dirname, "src/sier.html"));
 })
 
 console.log("WELCOME TO BOHAO BLOG SERVER");
