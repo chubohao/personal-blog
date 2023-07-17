@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Bohao Chu, and Bootstrap contributors">
+    <title>SIER | Bohao Chu</title>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom style sheet -->
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css"/>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:700%7CNunito:300,600" rel="stylesheet">
+
+    <!--Title Icon-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    </head>
+
+
+    <body>
+
+        <header class="fixed-top header"></header>
+
+		<main>
+			<div class="section px-0">
+				<div id="post-header" class="page-header page-header-light pt-5" style="background-image: url('assets/img/dator/3.png'); background-color: #100c2a; background-position-x: 90%; background-position-y: 90%; background-size: auto 85%">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-10 col-sm-11 post-meta">
+								<a class="post-category cat-2" href="#">Data Mining</a>
+								<a class="post-category cat-1" href="#">Web Server</a>
+								<span class="post-date text-light">Oct 3, 2022 </span>
+								<br><br>
+								<h1 class="text-light">Modular Data Analysis Platform</h1>
+								<h3 class="text-light pt-3">
+									Receiving, storing, displaying and analyzing various sensor data.
+								</h3>
+								<p>
+									<span class="text-light">
+										Bohao Chu, Yousong Chu
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="section">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<!-- POST MAIN -->
+						<div class="col-md-8 pe-5">
+
+							<h3>INTRODUCTION</h3>
+							<a href="http://bohao.de:8992" class="btn btn-primary my-3">
+								<i class="bi bi-signpost-fill me-2"></i>
+								GPT SIER
+							</a>
+							<div class="section-row">
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/dator/title.png" alt="" width="100%">
+									<figcaption class="my-3">
+										<strong>Figure 1.</strong> Web UI Preview.
+									</figcaption>
+								</figure>
+							</div>
+
+							<div class="row">
+								<h4>
+									BACKGROUND
+								</h4>
+								<p>
+									I have been exposed to a wide variety of sensors since I entered college in 2016. We do a lot of interesting things with these sensors, such as measuring the distance from obstacles with ultrasonic sensors, which enables cars to avoid obstacles automatically, and tracking people through infrared sensors to open doors or air conditioners. However, we only did a simple logical analysis of the data on the terminal, like operating in a blind box, and there was no place to host them, visualize them, and further mining them. As the amount of sensor data increases dramatically, it is necessary to store, visualize, and then mine information from large amounts of data.
+								</p>
+
+								<h4>
+									MOTIVATION
+								</h4>
+								<p>
+									In fact, there are many excellent data visualization and data processing platforms. For example, PowerBI and Tableau. However, it is not very user-friendly for custom function modules. Because of the variety of data from different sensors in different scenarios, we need to write special data processing methods for this and present the data the way we want it. We plan to create many microservices. (e.g. convolution, noise reduction, pooling, etc.) Data processing and visualization modules for developers to implement them.
+								</p>
+
+								<h3 class="mt-4">METHOD</h3>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/dator/arch.png" alt="" width="100%">
+									<figcaption>
+										<strong>Figure 2.</strong> The system architecture consists of data sources, backends, and frontends.
+									</figcaption>
+								</figure>
+
+								<h4>
+									Front End
+								</h4>
+								<p>
+									At the front end, we are divided into four modules: user management module, device management module, data management module, and customized service module. The user management module implements functions such as user registration, deregistration, group, and authorization. Through the device management module, we can register data devices. After the registration is complete, the corresponding ID and key are allocated. After the registration is successful, different types of devices can use some basic data analysis microservices provided by we. It is worth mentioning that the devices can be hardware devices (such as cameras and sensors). It can also be a virtual device (for example, an HTTP request). The data management module can process data under the device, including data calculation and processing. In the service management module, users can write customized services based on their own data, which is our focus in the future. By the way, our front-end technology stack is: <strong>Vite4 + Vue3 + Bootstrap5 + SCSS</strong>.
+								</p>
+								
+								<h4>
+									Back End
+								</h4>
+								<p>
+									Our backend project uses the classic MVC framework, including database services, data access services, data processing services, and authentication services.
+								</p>
+
+								<strong>
+									- Database Services
+								</strong>
+								<p class="ps-4">
+									Database Services corresponds to M in MVC. This service is used to perform operations on the database, such as adding, deleting, modifying, and querying data. Databases such as <strong>Postgrel SQL</strong>, <strong>MongoDB</strong>, and <strong>Redis</strong> are deployed. Postgrel SQL stores user, device, and service information, and MongoDB stores access data. Redis is used for data caching to improve data processing speed and protect databases.
+								</p>
+
+								<strong>
+									- Data Access Services
+								</strong>
+								<p class="ps-4">
+									Data Access Services corresponds to C in MVC and is used to receive data from devices (including hardware devices and virtual devices). We provide four data access protocols: MQTT, HTTP, and media stream. HTTP is the most widely used. Media streams are mainly used for video data access.
+								</p>
+
+								<strong>
+									- Data Process Services
+								</strong>
+								<p class="ps-4">
+									Data processing services correspond to V and C in MVC. After a user invokes the data processing microservice on the frontend, the frontend processes the data in the database and returns the processing result to the frontend. The frontend renders the result through the following plug-ins:
+								</p>
+
+								<strong>
+									- Authentication Services
+								</strong>
+								<p class="ps-4">
+									The authentication service includes data access authentication and user operation authentication. After a user logs in, the user obtains a JWT token. Each page and service accessed later must carry the token. The token contains the user information and expiration time, which is generally 15 minutes. After data registration, a device ID and key are returned. Each time a device accesses the data, the device needs to carry the ID and key for authentication. Otherwise, the access is rejected.
+								</p>
+
+								
+								<h4>
+									Data Source
+								</h4>
+								<p>
+									Rich data is the basis for effective data analysis. Our platform supports the access of various data, such as various sensor data, video streams, audio streams, or file imports. Before data access, you need to register on the platform, and then obtain a device ID and key. Every time you send data, you need the ID and key corresponding to the carrier. The data is only allowed to be accessed after the platform verifies it. These data are stored in the MongoDB database.
+								</p>
+
+								<h3 class="mt-4">
+									KEYWORDS
+								</h3>
+								<p class="text-dark">
+									<strong>
+										Microservice, Modularization, Sensor, Visualization, Data Processing, Machine Learning, and Video Streaming.
+									</strong>
+								</p>
+
+							</div>
+
+						</div>
+
+						<!-- POST ASIDE -->
+						<div class="col-md-4">
+							<h3>EXPERIMENT</h3>
+							<div class="row mb-5">
+								<h4>WEB UI</h4>
+								<p>
+									We have developed our UI pages based on an open source UI template. In addition to aesthetics, we are looking for system stability, security and responsiveness. We have completed the development of some basic pages to implement some basic services, such as user registration, login, device registration, deletion, modification and data display.
+								</p>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/dator/login.png" alt="" width="100%">
+									<figcaption>
+										<strong>Figure 3.</strong> Login Page.
+									</figcaption>
+								</figure>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/dator/home.png" alt="" width="100%">
+									<figcaption>
+										<strong>Figure 4.</strong> Home Page.
+									</figcaption>
+								</figure>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/dator/add.png" alt="" width="100%">
+									<figcaption>
+										<strong>Figure 5.</strong> Add a new device.
+									</figcaption>
+								</figure>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/dator/list.png" alt="" width="100%">
+									<figcaption>
+										<strong>Figure 6.</strong> Devices List.
+									</figcaption>
+								</figure>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/dator/data.png" alt="" width="100%">
+									<figcaption>
+										<strong>Figure 7.</strong> Device Detail.
+									</figcaption>
+								</figure>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/dator/datas.png" alt="" width="100%">
+									<figcaption>
+										<strong>Figure 8.</strong> Data Analysis.
+									</figcaption>
+								</figure>
+							</div>
+
+						</div>
+						<!-- /aside -->
+					</div>
+					<!-- /row -->
+				</div>
+				<!-- /container -->
+			</div>
+			<!-- /section -->
+		</main>
+
+
+        <footer class="section bg-secondary mt-5 footer"></footer>
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+        <script>
+            addEventListener("DOMContentLoaded", function() {
+                $(".header").load("components/header.html",function(){});
+                $(".footer").load("components/footer.html",function(){});
+            });
+        </script>
+
+    </body>
+</html>
