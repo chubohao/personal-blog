@@ -19,8 +19,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    </head>
-
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-dark.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
 
     <body>
 
@@ -84,19 +85,92 @@
 							<div class="row">
 								
 
-								<h3 class="mt-4">METHOD</h3>
+<h3 class="mt-4">METHOD</h3>
 
-								<p>
-									In this work, we explore the concept of <strong>Edge Computing Sensor Kit (ECSK)</strong> based on the former work. We designed a new type of hardware that integrates several different types of sensors, including a camera and a microphone, on a small board, while adding a powerful processor and Tensor Processing Unit, which allows algorithmic models and applications to run directly on it instead of on a remote server. Each sensor has a task channel, and multiple sensors can independently perform data sampling and feature extraction with concurrency. Feature data from different sensor channels are used to achieve real-time recognition of general activities in the environment (e.g., robotic arm movement) by a machine learning based multi-sensor information fusion algorithm.
+<h4>
+1. mlti-camera video concurrent pull stream
+</h4>
+<p>
+This work uses the Hikvision camera that supports RTSP protocol, according to the product manual can be known to pull the video stream as shown in the base code 1. To realize multiple pulling cameras, we use a multi-threaded approach.
+</p>
 
-								</p>
+<pre class="hljs card m-2">
+<code>
+import cv2
+# Camera Login Information
+ip='192.168.2.111'
+user='admin'
+password='123456'
+# rtsp://[username]:[passwd]@[ip]:[port]/[codec]/[channel]/[subtype]/av_stream
+capture = cv2.VideoCapture("rtsp://"+ user +":"+ password +"@" + ip + ":554/h264/ch1/main/av_stream")
+ret, frame = capture.read()
+cv2.namedWindow(ip, 0)
+cv2.resizeWindow(ip, 500, 300)
+while ret:
+	ret, frame = capture.read()
+	cv2.imshow(ip,frame)
+	if cv2.waitKey(1) & 0xFF == ord('q'):
+		break
+cv2.destroyAllWindows()
+capture.release()
+</code>
+</pre>
 
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/ecsk/system_architecture.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 2.</strong> The relationship between the complexity
-									</figcaption>
-								</figure>
+
+
+<h4 class="mt-4">
+2. tagging of people's avatars in video streams
+</h4>
+<p>
+In this work, we explore the concept of <strong>Edge Computing Sensor Kit (ECSK)</strong> based on the former work. We designed a new type of hardware that integrates several different types of sensors, including a camera and a microphone, on a small board, while adding a powerful processor and Tensor Processing Unit, which allows algorithmic models and applications to run directly on it instead of on a remote server. Each sensor has a task channel, and multiple sensors can independently perform data sampling and feature extraction with concurrency. Feature data from different sensor channels are used to achieve real-time recognition of general activities in the environment (e.g., robotic arm movement) by a machine learning based multi-sensor information fusion algorithm.
+</p>
+
+<pre class="hljs card m-2">
+<code>
+import cv2
+cv2.namedWindow("she xiang tou buzhu")
+# download from opencv
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+while True:
+	ret, frame = capture.read()
+	gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
+	# detect avatar
+	faces = face_cascadedetectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(20, 20), flags=cv2.CASCADE_SCALE_IMAGE)
+	# lable avatar
+	for (x, y, w, h) in faces:
+		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+		cv2.imshow('she xiang tou', frame)
+		if cv2.waitKey(5) & 0xFF == ord('q'):
+			break
+</code>
+</pre>
+
+<h4 class="mt-4">
+3. Helmet Recognition based on YOLOv5
+</h4>
+<p>
+	我们基于YOLOv5训练了一个安全帽识别的模型
+</p>
+<pre class="hljs card m-2">
+<code>
+import cv2
+cv2.namedWindow("she xiang tou buzhu")
+# download from opencv
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+while True:
+	ret, frame = capture.read()
+	gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
+	# detect avatar
+	faces = face_cascadedetectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(20, 20), flags=cv2.CASCADE_SCALE_IMAGE)
+	# lable avatar
+	for (x, y, w, h) in faces:
+		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+		cv2.imshow('she xiang tou', frame)
+		if cv2.waitKey(5) & 0xFF == ord('q'):
+			break
+</code>
+</pre>
+
 
 								
 
@@ -185,6 +259,7 @@
         <footer class="section bg-secondary mt-5 footer"></footer>
         <script src="assets/js/bootstrap.bundle.min.js"></script>
         <script>
+			hljs.initHighlightingOnLoad();
             addEventListener("DOMContentLoaded", function() {
                 $(".header").load("components/header.html",function(){});
                 $(".footer").load("components/footer.html",function(){});
