@@ -19,8 +19,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    </head>
-
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-dark.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
 
     <body>
 
@@ -78,54 +79,205 @@
 								MOTIVATION
 							</h4>
 							<p>
-								Object recognition or action recognition based on visual computing has received a lot of attention and made great progress, such as ImageNet, YOLO, and so on. However, this area is still full of many challenges, such as how to improve the speed of video transmission, the speed of model recognition, and the generalization ability of models. This work will focus on these problems and implement a vision gateway based on image recognition.
+								Object recognition or action recognition based on visual computing has received a lot of attention and made great progress, such as ImageNet, YOLO, and so on. However, this area is still full of many challenges, such as how to improve the speed of video transmission, the speed of model recognition, and the generalization ability of models. This work will focus on these problems and implement a vision gateway based on YOLOv5s Model.
 							</p>
 
 							<div class="row">
 								
 
-								<h3 class="mt-4">METHOD</h3>
+<h3 class="mt-4">METHOD</h3>
 
-								<p>
-									In this work, we explore the concept of <strong>Edge Computing Sensor Kit (ECSK)</strong> based on the former work. We designed a new type of hardware that integrates several different types of sensors, including a camera and a microphone, on a small board, while adding a powerful processor and Tensor Processing Unit, which allows algorithmic models and applications to run directly on it instead of on a remote server. Each sensor has a task channel, and multiple sensors can independently perform data sampling and feature extraction with concurrency. Feature data from different sensor channels are used to achieve real-time recognition of general activities in the environment (e.g., robotic arm movement) by a machine learning based multi-sensor information fusion algorithm.
+<h4>
+1. Mlti-camera video concurrent pull stream
+</h4>
+<p>
+This work uses the Hikvision camera that supports RTSP protocol, according to the product manual can be known to pull the video stream as shown in the base code 1. To realize multiple pulling cameras, we use a multi-threaded approach.
+</p>
 
-								</p>
+<pre class="hljs card m-2">
+<code>
+import cv2
+# Camera Login Information
+ip='192.168.2.111'
+user='admin'
+password='123456'
+# rtsp://[username]:[passwd]@[ip]:[port]/[codec]/[channel]/[subtype]/av_stream
+capture = cv2.VideoCapture("rtsp://"+ user +":"+ password +"@" + ip + ":554/h264/ch1/main/av_stream")
+ret, frame = capture.read()
+cv2.namedWindow(ip, 0)
+cv2.resizeWindow(ip, 500, 300)
+while ret:
+	ret, frame = capture.read()
+	cv2.imshow(ip,frame)
+	if cv2.waitKey(1) & 0xFF == ord('q'):
+		break
+cv2.destroyAllWindows()
+capture.release()
+</code>
+</pre>
+<p class="px-3 pt-3 text-center">
+	<small><strong>Code 1.</strong> Camera Video Stream Pulling Based on RTSP Protocol.</small>
+</p>
 
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/ecsk/system_architecture.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 2.</strong> The relationship between the complexity
-									</figcaption>
-								</figure>
+<h4 class="mt-2">
+2. Detect people's body and avatar in video streams
+</h4>
+<p>
+We used some of the detectors that come with in to detect human bodies, and avatars in video frames (pictures). These detectors have been successfully applied to pedestrian detection in still images. They can be directly passed as parameters to the program HaarFaceDetect.
+<br>
+- Upper body detector (most fun, useful in many scenarios!)
+<br>
+- Lower body detector
+<br>
+- Full body detector
+</p>
 
-								
+
+<pre class="hljs card m-2">
+<code>
+import cv2
+cv2.namedWindow("Helmet")
+# download from opencv
+# haarcascade_fullbody.xml for body
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+while True:
+	ret, frame = capture.read()
+	gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
+	# detect avatar
+	faces = face_cascadedetectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(20, 20), flags=cv2.CASCADE_SCALE_IMAGE)
+	# lable avatar
+	for (x, y, w, h) in faces:
+		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+		cv2.imshow('Helmet', frame)
+		if cv2.waitKey(5) & 0xFF == ord('q'):
+			break
+</code>
+</pre>
+<p class="px-3  pt-3 text-center">
+	<small><strong>Code 2.</strong> Getting the human body, and avatar region in a video stream.</small>
+</p>
+
+<h4 class="mt-2">
+3. Helmet Recognition Model based on YOLOv5
+</h4>
+<a href="https://github.com/njvisionpower/Safety-Helmet-Wearing-Dataset">
+	A. Dataset [Safety-Helmet-Wearing-Dataset]
+</a>
+<p>
+	SHWD provide the dataset used for both safety helmet wearing and human head detection. It includes 7581 images with 9044 human safety helmet wearing objects(positive) and 111514 normal head objects(not wearing or negative). The positive objects got from goolge or baidu, and we manually labeld with LabelImg. Some of negative objects got from SCUT-HEAD. We fixed some bugs for original SCUT-HEAD and make the data can be directly loaded as normal Pascal VOC format. Also we provide some pretrained models with MXNet GluonCV.
+</p>
+<pre class="hljs card m-2">
+<code>
+path: ../datasets/helmet  # dataset root dir
+train: images/train  # train images
+val: images/val      # val images
+
+# Classes (3 classes)
+names:
+	0: person
+	1: head
+	2: helmet
+</code>
+</pre>
+
+<a href="https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#12-create-labels_1">
+	B. Create Labels
+</a>
+<a href="https://jinglingbiaozhu.com/" class="text-primary">We use JingLingBiaoZhu tool to lable our images</a>
+<p>
+After using an annotation tool to label our images, export our labels to YOLO format, with one *.txt file per image (if no objects in image, no *.txt file is required). The *.txt file specifications are:
+<br>
+- One row per object
+<br>
+- Each row is class x_center y_center width height format.
+<br>
+- Box coordinates must be in normalized xywh format (from 0 - 1). If your boxes are in pixels, divide x_center and width by image width, and y_center and height by image height.
+<br>
+- Class numbers are zero-indexed (start from 0).
+</p>
+<pre class="hljs card m-2">
+<code>
+import numpy as np
+def convert(size, box):
+	"""
+	convert labled [x1,y1,x2,y2] to location using by YOLOv5
+	:param size: [w,h]
+	:param box: [x1,y1,x2,y2]
+	:return: [x,y,w,h]
+	"""
+	x1 = int(box[0])
+	y1 = int(box[1])
+	x2 = int(box[2])
+	y2 = int(box[3])
+
+	dw = np.float32(1. / int(size[0]))
+	dh = np.float32(1. / int(size[1]))
+
+	w = x2 - x1
+	h = y2 - y1
+	x = x1 + (w / 2)
+	y = y1 + (h / 2)
+
+	x = x * dw
+	w = w * dw
+	y = y * dh
+	h = h * dh
+	return [x, y, w, h]
+</code>
+</pre>
 
 
-								<h3 class="mt-4">
+
+
+
+
+
+<a href="https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#13-organize-directories">
+	C. Organize Directories
+</a>
+<p>
+	Organize your train and val images and labels according to the example below. YOLOv5 assumes /coco128 is inside a /datasets directory next to the /yolov5 directory. YOLOv5 locates labels automatically for each image by replacing the last instance of /images/ in each image path with /labels/.
+</p>
+<pre class="hljs card m-2">
+<code>
+../datasets/helmet/images/im0.jpg  # image
+../datasets/helmet/labels/im0.txt  # label
+</code>
+</pre>
+<a href="https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#2-select-a-model">
+	D. Select a Model
+</a>
+<p>
+	Select a pretrained model to start training from. Here we select YOLOv5s, the second-smallest and fastest model available. See our README table for a full comparison of all models.
+</p>
+<figure class="figure-img text-center">
+	<img class="img-responsive" src="assets/img/ecg/models.png" alt="" width="100%">
+</figure>
+
+
+<a href="https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#3-train">
+	E. Train
+</a>
+<p>
+	Train a YOLOv5s model on helmet by specifying dataset, batch-size, image size and either pretrained --weights yolov5s.pt (recommended), or randomly initialized --weights '' --cfg yolov5s.yaml (not recommended). Pretrained weights are auto-downloaded from the latest YOLOv5 release.
+</p>
+
+<p>
+	All training results are saved to runs/train/ with incrementing run directories, i.e. runs/train/exp2, runs/train/exp3 etc. For more details see the Training section of our tutorial notebook.
+</p>
+
+<pre class="hljs card m-2">
+<code>
+python train.py --img 640 --epochs 3 --data helmet.yaml --weights yolov5s.pt
+</code>
+</pre>
+
+							
+
+								<h3 class="mt-2">
 									RESULT
 								</h3>
 
-								<figure class="figure-img text-center row">
-									<img class="img-responsive col-6" src="assets/img/ecg/5.jpg" alt="" width="100%">
-									<img class="img-responsive col-6" src="assets/img/ecg/5r.jpg" alt="" width="100%">
-								</figure>
-								<figure class="figure-img text-center row">
-									<img class="img-responsive col-6" src="assets/img/ecg/4.jpg" alt="" width="100%">
-									<img class="img-responsive col-6" src="assets/img/ecg/4r.jpg" alt="" width="100%">
-								</figure>
-								<figure class="figure-img text-center row">
-									<img class="img-responsive col-6" src="assets/img/ecg/1.jpg" alt="" width="100%">
-									<img class="img-responsive col-6" src="assets/img/ecg/1r.jpg" alt="" width="100%">
-								</figure>
-								<figure class="figure-img text-center row">
-									<img class="img-responsive col-6" src="assets/img/ecg/2.jpg" alt="" width="100%">
-									<img class="img-responsive col-6" src="assets/img/ecg/2r.jpg" alt="" width="100%">
-								</figure>
-
-								<figure class="figure-img text-center row">
-									<img class="img-responsive col-6" src="assets/img/ecg/3.jpg" alt="" width="100%">
-									<img class="img-responsive col-6" src="assets/img/ecg/3r.jpg" alt="" width="100%">
-								</figure>
 								
 
 								<h3 class="mt-4">
@@ -145,6 +297,15 @@
 						<div class="col-md-4">
 							<div class="row mb-5">
 								<h3>MATERIALS</h3>
+								<h4>
+									About YOLOv5
+								</h4>
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/ecg/models.png" alt="" width="100%">
+									<img class="img-responsive" src="assets/img/ecg/yolo5.png" alt="" width="100%">
+									<img class="img-responsive" src="assets/img/ecg/yolo.png" alt="" width="100%">
+									<img class="img-responsive" src="assets/img/ecg/yolo1.png" alt="" width="100%">
+								</figure>
 
 								<h4>HARDWARE</h4>
 								<p>
@@ -165,10 +326,20 @@
 									<img class="img-responsive" src="assets/img/ecg/gateway-3.png" alt="" width="100%">
 								</figure>
 
-								<h4>EXPERIMENT</h4>
-								<p>
-									TO DO ...
-								</p>
+								<h4>TRAINNING</h4>
+								<div class="row m-0 p-0">
+									<img class="img-responsive col-6 py-2" src="assets/img/ecg/5.jpg" alt="" width="100%">
+									<img class="img-responsive col-6 py-2" src="assets/img/ecg/5r.jpg" alt="" width="100%">
+									<img class="img-responsive col-6 py-2" src="assets/img/ecg/4.jpg" alt="" width="100%">
+									<img class="img-responsive col-6 py-2" src="assets/img/ecg/4r.jpg" alt="" width="100%">
+									<img class="img-responsive col-6 py-2" src="assets/img/ecg/1.jpg" alt="" width="100%">
+									<img class="img-responsive col-6 py-2" src="assets/img/ecg/1r.jpg" alt="" width="100%">
+									<img class="img-responsive col-6 py-2" src="assets/img/ecg/2.jpg" alt="" width="100%">
+									<img class="img-responsive col-6 py-2" src="assets/img/ecg/2r.jpg" alt="" width="100%">
+									<img class="img-responsive col-6 py-2" src="assets/img/ecg/3.jpg" alt="" width="100%">
+									<img class="img-responsive col-6 py-2" src="assets/img/ecg/3r.jpg" alt="" width="100%">
+								</div>
+								<h4>HARDWARE</h4>
 								
 							</div>
 						</div>
@@ -185,6 +356,7 @@
         <footer class="section bg-secondary mt-5 footer"></footer>
         <script src="assets/js/bootstrap.bundle.min.js"></script>
         <script>
+			hljs.initHighlightingOnLoad();
             addEventListener("DOMContentLoaded", function() {
                 $(".header").load("components/header.html",function(){});
                 $(".footer").load("components/footer.html",function(){});
