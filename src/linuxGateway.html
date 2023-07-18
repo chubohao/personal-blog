@@ -41,7 +41,7 @@
 								</h3>
 								<p>
 									<span class="text-light">
-										Bohao Chu, Yuting Jia, Yangjie Cao
+										Bohao Chu, Yuting Jia, Chao Wang, and Yangjie Cao
 									</span>
 								</p>
 								<button type="button" class="btn btn-dark btn-lg btn-circle me-3">
@@ -62,18 +62,18 @@
 					<!-- row -->
 					<div class="row">
 						<!-- POST MAIN -->
-						<div class="col-md-8 pe-5">
+						<div class="col-md-8 pe-md-5">
 
 							<h3>INTRODUCTION</h3>
 
-							<div class="section-row">
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/lora/arch.png" alt="" width="100%">
-									<p class="px-3 pt-3 text-center">
-										<small><strong>Figure 1.</strong> Architecture of Our Embedded Linux Gateway.</small>
-									</p>
-								</figure>
-							</div>
+
+							<figure class="figure-img text-center">
+								<img class="img-responsive" src="assets/img/lora/arch.png" alt="" width="100%">
+							</figure>
+							<p class="px-3 text-center">
+								<small><strong>Figure 1.</strong> Architecture of Our Embedded Linux Gateway.</small>
+							</p>
+
 
 							<div class="row">
 								<h4>BACKGROUND</h4>
@@ -81,7 +81,7 @@
 									In many scenarios, we need to collect data within an area, such as temperature in a city, or fire alarms in a building. With the rapid popularization of the Internet of Things technology, more and more terminal devices support the data networking function. Therefore, we can quickly network in an area. However, in the face of various types of terminal devices with different standards, the data platform cannot be compatible with every type of device. The gateway can help us solve this problem. It acts as a bridge between the node and the data platform. It reloads the received node data and accesses it to the data platform in the format required by the data platform.
 								</p>
 
-								<h4>MOTIVATION</h4>
+								<h4>MOTIVATION & GOALS</h4>
 								<p>
 									Based on mature wireless communication technologies, multiple networking modes are available, such as Wi-Fi, Bluetooth, ZigBee, LoRa, and NB-IoT. In regional networking, we need to pay attention to parameters such as cost, maximum transmission distance, power consumption, and penetration rate. In comparison, LoRa excels in all of these areas. Therefore, in this work, we design a LoRa gateway that can cover a radius of no more than 15 km (ideal theoretical value) and reload node data to the data platform through the 4G cellular network in the format required by the data platform.
 								</p>
@@ -143,18 +143,24 @@
 								</p>
 
 								<span href="" class="text-muted">1. U-Boot</span>
-								<figure class="row">
+								<figure>
 									<img src="assets/img/lora/uboot-3.png" width="100%">
 								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> ARIMA-LSTM Model Structure.</small>
+								</p>
 
 								<p>
 									The BootLoader we use is U-Boot, which is short for Universal Boot Loader. It is an open-source project that complies with the GPL and is maintained by Wolfgang Denk of the DENX software work center in Germany. It supports multiple processors, including ARM, x86, MIPS, and RISCV. U-Boot is essentially a bare-metal program, which is similar to a single-chip microcomputer program. U-Boot uses assembly language and C language to operate some registers to initialize some peripherals, such as serial ports, networks, and DDR, and then loads the kernel program from the flash memory to the DDR to start the kernel. At the same time, control of the CPU is handed over to the kernel program, and its life cycle ends. It's just a complex and huge bare-metal program.
 								</p>
 								
-								<figure class="row">
+								<figure class="row m-0 p-0">
 									<img src="assets/img/lora/uboot-1.png" class="col-md-6">
 									<img src="assets/img/lora/uboot-2.png" class="col-md-6">
 								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> ARIMA-LSTM Model Structure.</small>
+								</p>
 								
 								<span>
 									A. Why initialize these peripherals?
@@ -185,26 +191,26 @@
 								<p>
 									We ported the current relatively new Linux kernel, version number 5.4.70.Our compilation environment is Ubuntu 22.04, and we configured the Linaro cross-compiler, which is version number 7.5.0.
 								</p>
+								<figure class="row">
+									<img src="assets/img/lora/kernel-1.png" width="100%">
+								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> ARIMA-LSTM Model Structure.</small>
+								</p>
+
+								<span class="text-muted">3. Root File System</span>
 								<p>
 									
 								</p>
 								
-								<figure class="row">
-									<img src="assets/img/lora/kernel-1.png" width="100%">
-								</figure>
+								
 
 
 
 
 
 								<h4>Gateway Applications</h4>
-								<p>
-									In this work, we explore the concept of <strong>Edge Computing Sensor Kit (ECSK)</strong> based on the former work. We designed a new type of hardware that integrates several different types of sensors, including a camera and a microphone, on a small board, while adding a powerful processor and Tensor Processing Unit, which allows algorithmic models and applications to run directly on it instead of on a remote server. Each sensor has a task channel, and multiple sensors can independently perform data sampling and feature extraction with concurrency. Feature data from different sensor channels are used to achieve real-time recognition of general activities in the environment (e.g., robotic arm movement) by a machine learning based multi-sensor information fusion algorithm.
-								</p>
-								<h3 class="mt-4">RESULT</h3>
-								<p>
-									After completing the model training, we deployed our system in six real scenarios, and the deployment location of ECSK. In each scenario, ECSK continued the identification for each real-time activity, and we kept 50 positive and negative examples for each activity to ensure a balanced sample. We counted the confusion matrix, accuracy, precision, recall and F1 score for the 27 activities in scenarios, and finally the F1 score was used as the reference metric. We rounded all the values.
-								</p>
+
 					
 
 								<h3 class="mt-4">
@@ -236,75 +242,7 @@
 								<p>
 									To facilitate the deployment of our Edge Computing Sensor Kit, we designed it to be as small as possible without compromising its performance. In the end, the size of our board was kept to 40 mm wide and 55 mm long, which is smaller than a bank card. 
 								</p>
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/ecsk/Top.jpg" alt="" width="100%">
-									<p class="px-3  pt-3 text-center">
-										<small><strong>Figure 7.</strong> Photo of Edge Computing Sensor Kit.</small>
-									</p>
-								</figure>
 							</div>
-							
-							<div class="row mb-3">
-								<h4>DIGITAL TWIN</h4>
-								<p>
-									A digital twin is a virtual model that is designed to accurately reflect a physical object. For example, a wind turbine is equipped with various sensors related to important functional areas that generate data about different aspects of the physical object’s performance, such as energy output, temperature, weather conditions, etc. This data is then forwarded to a processing system and applied to a digital copy.
-								</p>
-								<figure class="figure-img text-center col-6">
-									<img class="img-responsive" src="assets/img/ecsk/cnc3D.png" alt="" width="100%">
-								</figure>
-								<figure class="col-6">
-									<img class="img-responsive" src="assets/img/ecsk/3053D.png" alt="" width="100%">
-								</figure>
-								<p class="px-3  pt-3 text-center">
-									<small><strong>Figure 8.</strong> Industrial machine tools in the virtual world.</small>
-								</p>
-							</div>
-
-							<div class="row">
-								<h4>EVALUATION</h4>
-								<figure class="">
-									<img class="img-responsive" src="assets/img/ecsk/table-1.png" alt="" width="100%">
-									<img class="img-responsive" src="assets/img/ecsk/table-2.png" alt="" width="100%">
-									<img class="img-responsive" src="assets/img/ecsk/table-3.png" alt="" width="100%">
-									<img class="img-responsive" src="assets/img/ecsk/table-4.png" alt="" width="100%">
-									<img class="img-responsive" src="assets/img/ecsk/table-5.png" alt="" width="100%">
-									<img class="img-responsive" src="assets/img/ecsk/table-6.png" alt="" width="100%">
-								</figure>
-
-								<p class="px-3  pt-3 text-center">
-									<small><strong>Table 1-6.</strong> Model evaluation results in 6 scenarios.</small>
-								</p>
-							</div>
-
-							<div class="row mb-3">
-								<h4>EXPERIMENT</h4>
-								<p class="text-break">
-									In traditional IoT scenarios, Specific-Purpose Sensor (SPS) or Distributed Multi-Sensor (DMS) are usually deployed directly on different locations or objects to sense diverse purposes.
-								</p>
-
-								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/Z8w50vlm_s4" style="border:none" allowfullscreen></iframe>
-								<p class="px-3  pt-3 text-center">
-									<small><strong>Video 1.</strong> Someone famous in Source Title.</small>
-								</p>
-
-
-
-								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/PNvg8WORgbg" frameborder="0" allowfullscreen></iframe>
-								<p class="px-3  pt-3 text-center">
-									<small><strong>Video 2.</strong> Someone famous in Source Title.</small>
-								</p>
-							</div>
-
-							
-
-							<div class="row mb-3">
-								<h4>ARCHIVE</h4>
-								<ul>
-									<li><a href="#">Wei, Fuyin, Fei Xiang, Bohao Chu, and Bernd Noche. "Feature fusion algorithm based on modular scalable integrated sensor behavior recognition." Logistics Journal: Proceedings 2021, no. 17 (2021).</a></li>
-								</ul>
-							</div>
-
-
 
 
 						</div>

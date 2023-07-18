@@ -70,138 +70,179 @@
 									<img class="img-responsive" src="assets/img/arima/result.png" alt="" width="100%">
 								</figure>
 							</div>
+							<p class="px-3 text-center">
+								<small><strong>Figure 1.</strong> Version 2-based system experiments.</small>
+							</p>
+							<h4>
+								BACKGROUND
+							</h4>
+							<p>
+								As the source of demand that drives the supply system of an enterprise, forecasting the demand for goods at upstream and downstream nodes is the basis for all members of the supply chain to make business decisions such as ordering strategies, inventory management, and distribution planning. With the rapid development of the Internet economy and the further integration of industry and the Internet, customers' purchasing behavior has become more strategic, which makes the uncertainty of demand increase and greatly increases the difficulty of predicting customer demand. At the same time, the agility of the supply chain of enterprises has also raised higher requirements. Therefore, how to achieve a more accurate prediction of customer purchases is of great practical significance for the rational formulation of supply chain operations and management strategies.
+							</p>
+
+							<h4>
+								MOTIVATION & GOALS
+							</h4>
+							<p>
+								Specifically, this work uses a hybrid ARIMA-LSTM model to forecast the demand for popular commodity types on a real dataset. The results are compared experimentally with SARIMA, and LSTM models respectively. In this process, a detailed visual analysis of the used dataset is presented, and the whole process from data processing to experimental validation analysis is described in detail. The research on supply chain uncertainty factors is also supplemented with a study of the types and sources of market factors that need to be considered in supply chain demand forecasting from different perspectives, the many problems found in the process of supply chain demand forecasting, and the methods of prevention.
+							</p>
 
 							<div class="row">
-								<p>
-									As the source of demand that drives the supply system of an enterprise, forecasting the demand for goods at upstream and downstream nodes is the basis for all members of the supply chain to make business decisions such as ordering strategies, inventory management, and distribution planning. With the rapid development of the Internet economy and the further integration of industry and the Internet, customers' purchasing behavior has become more strategic, which makes the uncertainty of demand increase and greatly increases the difficulty of predicting customer demand. At the same time, the agility of the supply chain of enterprises has also raised higher requirements. Therefore, how to achieve a more accurate prediction of customer purchases is of great practical significance for the rational formulation of supply chain operations and management strategies.
-								</p>
-
 								<h3 class="mt-4">METHOD</h3>
 								<div class="row text-center">
-									<figure class="figure-img col-12">
-										<img class="img-responsive" src="assets/img/cvae/m.jpeg" alt="" width="99%">
-										<figcaption>
-										<strong>TABLE I.</strong> EVALUATION OF OUR 3 MODEL ADAPTIONS ON ALL SUBDATASETS COMPARED TO BASELINE LSTM. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.
-									</figcaption>
+									<figure class="figure-img p-0 m-0 text-center">
+										<img class="img-responsive" src="assets/img/arima/fusion model.png" alt="" width="100%">
 									</figure>
 								</div>
-
-								<p>
-									The presented model is called CoLoss-CVAE. The structure of CoLoss-CVAE is depicted in Figure 2. It consists of an RNN-Encoder-Decoder-Framework, realized by a Long-Short-Term-Memory (LSTM), a Conditional Variational Auto Encoder (CVAE) to predict a conditional distribution and a pooling module to encode human interaction, also called scene context. The inputs to our model are given by OBS and P RED_GT as described above. Both of those inputs are then encoded into LSTM hidden states.
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> ARIMA-LSTM Model Structure.</small>
 								</p>
 
-								<h6><i>LSTM ENCODER</i></h6>
 								<p>
-									The LSTM-Encoder autoregressively encodes the history of each agents trajectories into a single LSTM hidden state. There is one LSTM to encode the observed trajectories into the condition c and one LSTM to encode the groundtruth future trajetories into the input x. Both LSTMs work similarly to the described Encoder-LSTM below:
+									This work creates a fusion model based on ARIMA model and LSTM model with better performance on time series data. The data used came from the kaggle competition topic Predict Future Sales, specifically using four of the datasets named sales_train.csv, items.csv, items_categories.csv and shops.csv.
 								</p>
 
-								<h6><i>CVAE</i></h6>
+								<h4>
+									Data Preprocessing
+								</h4>
 								<p>
-									A CVAE is used to generate diverse multimodal outputs for the same input, as deterministic approaches would not suffice to represent realistic human behaviour. The goal of a CVAE is to learn the distribution P (y|c) of the output y given the condition c. This is done by using a latent variable z. The latent variable is sampled from latent space Z and the distribution of Z is learned by the CVAE. In training the distribution Q(z|x, c), called the posterior, is learned. This is the distribution of the latent space Z, which the latent variable z is sampled from. The latent space Z is of lower dimension than the input space and is used to encode input features. By encoding the input to a lower space, a one-to- many mapping is achieved in the output when generating a y from given z, making the model multimodal.
+									Firstly, the fields of the sample data table are introduced to have a preliminary understanding of the data volume and fields of the data table; secondly, the data are subjected to exploratory data analysis, which is a data analysis method to explore the structure and laws of the data by means of statistics, graphing and tabulation, etc. It can dig into the hidden relationship information contained in the data and find out the abnormal values, missing values and other abnormalities of the data.
+								</p>
+								
+								<p>
+									In practical engineering cases, time series reflects the patterns, anomalies and trends of data changes over time. The single time series itself is time-sensitive, and the data format and value standard have great changes. In addition, there are also missing, abnormal and inconsistent situations, which in turn affect the accuracy of the prediction results and the accuracy of the model. Therefore, it is very important to scientifically preprocess time series data before performing time series analysis. The main tool used for data import, analysis and processing in this section is pandas, which is a Numpy-based toolkit in python. The library contains a large number of standard data models, which can efficiently process and analyze big data, and pandas The DataFrame is a two-dimensional table data structure that conforms to the structure of the dataset in this paper. For data visualization, the visualization libraries matplotlib and seaborn in Python are mainly used for data graphics.
+								</p>
+								<h4>
+									Feature Expanding and Merging
+								</h4>
+								
+								<p>
+									Since most of the variables we have in the actual business have no actual meaning and are not suitable for direct modeling, such variables often have strong information value after doing certain transformations or combinations, which can be helpful for data sensitivity and machine learning. By observing the source dataset, we can find that the shop_name in shops.csv is composed of city name plus store type, so we can get the new feature city_name by splitting the store name, but since the city name is composed of complex text, it is not suitable for machine learning, here use LabelEncoder() to encode the feature as city\_code. Finally, all the data sets are merged and the new dataset is stored as daily\_data.csv, which contains the data attributes as shown in the following table.
+								</p>
+								<div class="row text-center">
+									<figure class="figure-img p-0 m-0 text-center">
+										<img class="img-responsive" src="assets/img/arima/dataset1.PNG" alt="" width="100%">
+									</figure>
+								</div>
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> daily data.csv Property List.</small>
+								</p>
+								<h4>Missing Value Handling</h4>
+								<p>
+									We fill the [item_cnt_day] and [item_price] columns with the average value of sales and the average value of price for the month of the missing date, respectively, and select the data in the column above the missing value for the other features. However, due to a large amount of missing data for November 2015, the data for that month will not be used in the actual case. After the missing values are added, the data of ID40 and ID30 are aggregated according to the item category ID and date, where item_price is aggregated by average value, item_cnt_day is aggregated by total value, and the remaining feature values are aggregated by the plural.
 								</p>
 
-								<h6><i>POOLING MODULE</i></h6>
+								<h4>
+									Outliers Handling
+								</h4>
 								<p>
-									The pooling module introduced in [12] encodes social interactions between the current person i and all neighbors j in the scene. It uses the current distance dt i,j between the person i and all their neighbors, as well as their current Decoder-LSTM hidden-states. The Decoder-LSTM is further explained in chapter. The advantage of also using the LSTM hidden-state is, that it also encodes previous movement, as not only the current distance is relevant in collision avoidance. The relation of neighbors is then computed by a Multi-Layer-Perceptron, as follows:
+									Outliers refer to sample points where some values in the sample deviate significantly from the rest, so they are also called outliers, often such data points exhibit unreasonable properties in the dataset. If these outliers are ignored, it will lead to deviations in the conclusions in some modeling scenarios, so in the process of data exploration, it is necessary to identify these outliers and deal with them properly.
 								</p>
-
+								<div class="row text-center p-0 m-0 ">
+									<figure class="figure-img text-center col-6">
+										<img class="img-responsive" src="assets/img/arima/ID40_sales_outlier.png" alt="" width="100%">
+									</figure>
+									<figure class="figure-img p-0 m-0 text-center col-6">
+										<img class="img-responsive" src="assets/img/arima/ID40_item_price.png" alt="" width="100%">
+									</figure>
+								</div>
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> Outliers by ID40 Sales Volume and Item Price.</small>
+								</p>
+								<h4>ARIMA-LSTM Model Desgin</h4>
+								<p>
+									Many time series models contain both linear and nonlinear relationships. While ARIMA and SARIM models are good at modeling linear relationships in time series, they are inadequate for modeling nonlinear relationships. The LSTM model can model both linear and nonlinear relationships, but cannot provide the same results for every data set. Therefore, in order to obtain the best prediction results, hybrid models based on modeling the linear and nonlinear components of the time series separately were used. These models have achieved better results in predicting time series analysis. The use of multiple learning algorithms results in better estimation performance compared to constructive learning algorithms. These hybrid models are based on supervised machine learning algorithms, so they can be used for both training and forecasting purposes. In addition, hybrid models increase model diversity and can achieve better prediction results.
+								</p>
+								<p>
+									The results obtained by using the hybrid model and those obtained by using the model alone, even if they are not correlated with each other, can be observed to reduce the general variance or error. Therefore, mixed models are considered to be the most successful models for prediction tasks. To make predictions, a number of hybrid models consisting of linear and nonlinear models have been used by different researchers. In this paper, by using historical data from time series for future forecasting, the linear fitting capability of ARIMA is first used to learn the fit for the linear features of the sales data of the commodity type, and the error series is calculated based on the predicted values obtained from the ARIMA model, followed by the estimation of the obtained error series and the original series with the features through the LSTM model to obtain the final results. The non-linear fitting ability of the LSTM model to the sequences is used to make a small correction to the prediction results of the ARIMA model. The flowchart of the method is shown in Figure 5.4.
+								</p>
 							</div>
 
+							<div class="row">
+								<h3 class="mt-4">KEYWORDS</h3>
+								<p class="text-dark">
+									<strong>
+										Demand Forecasting, Time Series Forecasting, Machine Learning, ARIMA, SARIMA, LSTM.
+									</strong>
+								</p>
+							</div>
 						</div>
 
 						<!-- POST ASIDE -->
 						<div class="col-md-4">
 							<div class="row mb-5">
-								<h3 class="mt-4">EXPERIMENT</h3>
-								<div class="row text-center">
-									<figure class="figure-img col-12">
-										<img class="img-responsive" src="assets/img/cvae/t1.png" alt="" width="100%">
-										<figcaption>
-										<strong>TABLE I.</strong> EVALUATION OF OUR 3 MODEL ADAPTIONS ON ALL SUBDATASETS COMPARED TO BASELINE LSTM. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.
-									</figcaption>
-									</figure>
-
-
-
-									<figure class="figure-img col-12">
-										<img class="img-responsive" src="assets/img/cvae/t2.png" alt="" width="100%">
-										<figcaption>
-										<strong>TABLE II.</strong> EVALUATION OF OUR BEST MODEL ON ALL SUBDATASETS COMPARED TO 4 DIFFERENT BASELINE MODELS. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.
-									</figcaption>
-									</figure>
-								</div>
-
+								<h3 class="mt-4">MATERIALS</h3>
+								<h4>EVALUATION & COMPARISION</h4>
 								<p>
-									In this Section, we evaluate our model on two public available datasets ETH [13] and UCY [9]. These two datasets include huge numbers of pedestrian trajectories with inter- actions between multiple people from real world scenarios. These datasets are based on 4 different scenes - ETH & HOTEL (from ETH) and UNIV & ZARA (from UCY), which consist of 1536 pedestrians in total. The datasets are divided into the 5 subdatasets ETH, HOTEL, UNIV, ZARA1 and ZARA2. Each of them is further divided into training set, validation set and test set. We use a version, which is unified by Gupta et al. [13] so that all trajectories are in the same metric world coordinate system and interpolate to obtain the trajetories respective positions at every timestep equal to 0.4s. As same as previous work, the subdataset is evaluated using the leave-one-out approach. Four subdatasets are used for training and the remaining subdataset is used for testing.
+									We evaluated the SARIMA model, the LSTM model, and the SARIMA-LSTM fusion model in turn (below, from top to bottom), and the results show that the fusion model performs better, (see right side for specific parameters).
+								</p>
+								<p>
+									Although the hybrid model proposed in this paper has improved in accuracy compared with SARIMA and LSTM, the improvement is relatively small and there are still some limitations in demand forecasting, so we can consider increasing the complexity of the model for forecasting analysis in the future.
+								</p>
+								<p>
+									The current demand forecasting algorithm can only accomplish short-term forecasting with a small time scale. Therefore, the next step will be to consider a deeper exploration using other machine learning models and increasing the feature dimensionality.
 								</p>
 
-								<div class="row text-center">
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/p1.png" alt="" width="99%">
-									</figure>
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/p2.png" alt="" width="99%">
-									</figure>
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/p3.png" alt="" width="99%">
-									</figure>
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/arima/ID40_SARIMA_predictions.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> Comparison of the three model predictions.</small>
+								</p>
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/arima/ID40_LSTM.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> Comparison of the three model predictions.</small>
+								</p>
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/arima/ID40_fusion.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> Comparison of the three model predictions.</small>
+								</p>
 
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/p4.png" alt="" width="99%">
-									</figure>
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/p5.png" alt="" width="99%">
-									</figure>
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/p6.png" alt="" width="99%">
-									</figure>
-									<figcaption>
-										<strong>TABLE I.</strong> EVALUATION OF OUR 3 MODEL ADAPTIONS ON ALL SUBDATASETS COMPARED TO BASELINE LSTM. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.
-									</figcaption>
-
-								</div>
-
+								<h4>
+									DATASET
+								</h4>
 
 								<p>
-									First we compared the results of our different models to see which architecture leads to the best results. As a baseline we used a basic LSTM-Encoder-Decoder trained with LN LL and LCOL called LSTM-NLL-Coll. The evaluation is shown in Table I.
+									This paper uses data from the Kaggle competition Predict Future Sales, using four datasets named sales_train.csv, items.csv, items_categories.csv and shops.csv, sales_train.csv contains daily historical data from January 2013 to October 2015, items.csv contains additional information about items, items_categories.csv contains additional information about item categories, shops.csv contains additional information about shops. 
+								</p>
+		
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/arima/dataset.PNG" alt="" width="100%">
+								</figure>
+	
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> Dataset Property List.</small>
+								</p>
+								<p>
+									The shape of sales_train.csv has 6 columns and 2935849 rows. items.csv has 3 columns and 22170 rows. items_categories.csv contains 2 columns and 84 rows. shops.csv has 2 columns and 60 rows. The shape of each dataset shows that there are 22,170 different items which can be grouped into 84 categories, and 60 shops counted in the dataset. The table below shows the column names contained in each of the four datasets.
+								</p>
 
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/arima/dataset2.PNG" alt="" width="100%">
+								</figure>
+
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> Dataset Property List.</small>
 								</p>
 
 								<p>
-									This evaluation showed that our model CoLoss-CVAE-MMD-N(0,1) using MMD unexpectedly performed worse than our Baseline-LSTM. We implemented it due to the good performance the MMD achieved in [17]. We assume this bad performance resulting from MMD not being suited for distributions in particular, but for stacks of data. The computation of MMD is based on comparing all of the moments in two data stacks. To use MMD it is possible to treat the distributions like data stacks. Nevertheless the implementation in [17] lead to good results, eventually by a different way to implement MMD to learn the prior
+									Since the main purpose of this paper is to forecast the sales of hot item categories, it is necessary to have an understanding of the popularity of the item categories before pre-processing the data. As shown in Figure 6.2, the sales of different item categories are aggregated, and it can be seen that the item category with item_category_id of 40 has the highest sales, followed by the item with item_category_id of 30. For the sake of brevity, ID40 and ID30 will be used directly in subsequent papers to refer to the item categories for which sales forecasts are to be made. 
 								</p>
 
-								<p>
-									Our model CoLoss-CVAE-KLD-N(0,1) achieved the best results in average ADE and FDE, while average ACT=0.021 was still comparable to our best result ACT=0.017, that was achieved by CoLoss-CVAE-KLD-PRIOR. This results also were astonishing, as we implemented the Prior-Net to achieve a prior distribution of higher quality as also shown in [17]. As in this model a second, more complex, distribution has to be learned, we trace back the results to this expanded architecture, making the training more com- plex. Nevertheless our model CoLoss-CVAE-KLD-N(0,1) achieved good results, compared in Table II to state-of-the- art models. CoLoss-CVAE will in further context refer to our best performing model CoLoss-CVAE-KLD-N(0,1).
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/arima/top_categories.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> op Item Categories Sales.</small>
 								</p>
 
-								<div class="row text-center">
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/e1.png" alt="" width="99%">
-									</figure>
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/e2.png" alt="" width="99%">
-									</figure>
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/e3.png" alt="" width="99%">
-									</figure>
 
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/e4.png" alt="" width="99%">
-									</figure>
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/e5.png" alt="" width="99%">
-									</figure>
-									<figure class="figure-img col-4">
-										<img class="img-responsive" src="assets/img/cvae/e6.png" alt="" width="99%">
-									</figure>
-									<figcaption>
-										<strong>TABLE I.</strong> EVALUATION OF OUR 3 MODEL ADAPTIONS ON ALL SUBDATASETS COMPARED TO BASELINE LSTM. THE RESULTS ARE ADE/FDE/ACT. LOWER IS BETTER AND BOLD INDICATES BEST.
-									</figcaption>
-
-								</div>
 							</div>
-
+S
 
 
 						</div>
