@@ -69,46 +69,66 @@
 							<div class="section-row">
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/car/arch.jpg" alt="" width="100%">
-									<figcaption class="my-3">
-										<strong>Figure 1.</strong> The local full-coverage LORAWAN network composed of multiple RFID tag nodes and multiple gateways.
-									</figcaption>
 								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 1.</strong> Logistics trolleys in a laboratory environment.</small>
+								</p>
 							</div>
 
 							<div class="row">
 								<h4 class="mt-4">BACKGOURND</h4>
 								<p>
-									In the hospital drug management scenario, some drugs are stored in the medicine box. However, the consumption and surplus always require manual inventory, which occupies a lot of manpower and material resources. At the same time, drug managers cannot see the consumption statistics of various types of drugs on a macro level, which leads to untimely replenishment.
+									With the development of technology and the increase in application demand, the research and development and application of logistics robots are gradually being emphasized globally, and the traditional industrial intelligent manufacturing abroad, as well as Amazon and other Internet giants, are successively laying out logistics robots. Logistics robots are also gradually recognized as an important intelligent infrastructure in the process of digitization and automation of logistics and supply chain related enterprises.
 								</p>
-
+								<p>
+									China's logistics robot market reached 12.6 billion yuan in 2021, up 63.64% year-on-year. The downstream applications of logistics robots are mainly in the automotive industry and home appliance manufacturing, accounting for 24% and 22% respectively. E-commerce warehousing and logistics, tobacco manufacturing, 3C electronics, and food and beverage accounted for 15%, 15%, 13%, and 6%, respectively.
+								</p>
+								<p>
+									China's mobile robot (AGV/AMR) industry alliance data, new strategy mobile robot industry research institute statistics show that China's fork mobile robot (including vision navigation) sales reached 8000 units in 2021, a year-on-year growth of 60%, the market size of about 2.45 billion yuan, a year-on-year growth of 42.40%. From the distribution of product categories, in 2021, the laser has reflective plate forklift is still the mainstream market application, accounting for 69%, followed by SLAM navigation unmanned forklift, in some of the high degree of flexibility requirements of the robot scene gradually penetrate, accounting for 23%.
+								</p>
 								
 								<h4 class="mt-4">MOTIVATION</h4>
 								<p>
-									Besides hospitals, there are many other fields facing the same problem, for example, how to track a huge amount of parcels in a timely manner in a logistics system or how to count the consumption of materials in a warehouse system. This is a very classic one-way IoT scenario (i.e., one-way flow of data) with a wide market of demand. For the hospital medicine box scenario, how to identify drugs, and networking is key, and we must take into account that the Internet does not necessarily exist. At the same time, drug data management, statistics, and replenishment notification functions are also important.
+									In traditional logistics, it is often necessary to manually sort packages that are destined for different regions and then pulled away by trucks. This is not only time-consuming and labor-intensive, but also difficult to track, which is why Libiao is one of the best logistics robotics sorting companies that have emerged around the world.
+								</p>
+								<p>
+									Libiao Robotics Co., Ltd. is the world's first intelligent sorting robot and the world's leading supplier of flexible intelligent sorting solutions, creating the world's first portable, modular, automated cell sorting system, the company integrates the research and development, production, and sales of logistics automation and intelligent equipment.
+								</p>
+								<p class="text-primary">
+									The cooperation between Libiao and the University of Essen in Duisburg gave me the opportunity to get in touch with objects and deploy logistics robots.
 								</p>
 
 								<h3 class="mt-4">METHOD</h3>
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/rfid/arch.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 2.</strong> Archtecture
-									</figcaption>
-								</figure>
-
+								<h4>
+									Logistics Trolley Positioning and Orientation
+								</h4>
 								<p>
-									In this work, we explore how to implement IoT networking in an Internet-free environment, as well as effectively track the incoming and outgoing drug inventory, and the management and application of this data.
-								</p>
-								<p>
-									1. We put a passive UHF RFID tag on each drug box, and each tag stores a 64-bit unique code for that drug inside, while placing SparkFun's RFID reader (including antenna) on the top of the drug box, and a reader can cover the whole drug box.
+									In the activity area of the logistics trolley, there are a number of 45*45cm large black rubber mats laid out. Each rubber mat is submerged in a RFID tag, while the rubber mat carries magnetic, mat back red arrow points to the North Pole. Logistics trolley has a RFID reader, whenever the logistics trolley passes through the mat word, you can read the mat RFID tags, so you can know where they are located. Logistics trolley can determine the direction of the trolley by judging the magnetic field.
 								</p>
 
+								<h4>
+									Data Transmission
+								</h4>
 								<p>
-									2. Considering the hospital environment, the Internet may not have full coverage, so we use LoRa for networking, each RFID reader with a LoRa node, and then each floor deploys a LoRa gateway to receive data from the nearby LoRa nodes, and the gateway sends the data to the server through the Internet.
+									The logistics system runs on a PC, how do the carts communicate with the system? There is a WiFi module on each hour, and the carts interact with the system through the WiFi module.
 								</p>
 
+								
+								<h4>
+									Pickup and Unloading
+								</h4>
 								<p>
-									3. On the data application side, we count the consumption trend of each drug, as well as the real-time stock, and if it is below the threshold, the administrator replenishes or stocks it at the same time.
+									In the activity area of the trolley, you can designate several of them as pickup areas and several others as unloading areas according to your needs (which need to be set through the system software). There is a camera above the pickup area to scan the QR code or barcode of the parcel to determine which unloading port the parcel needs to be sent to.
 								</p>
+
+								<h4>
+									Route Planning
+								</h4>
+								<p>
+									Route planning is at the heart of the whole system and the core competence of a home company. Therefore, we can't know the specific information. But there are already many excellent path planning algorithms, such as RRT,A*, Elastic band and so on. When dealing with path planning, we first consider collision prevention, and then consider the problem of path shortest.
+								</p>
+
+
 
 								
 
@@ -117,14 +137,9 @@
 									RESULT
 								</h3>
 								<p>
-									We simulate drug consumption and replenishment scenarios, and the details of the drugs and consumption trends can be clearly seen in the quantity management platform we developed. However, limited by the capability of RFID reader, the medicine cannot be tracked 100%, which is the next step we need to investigate and improve.
+									We tested the Libao logistics trolley system in a lab environment, and the results showed that through robotic sorting, each trolley can sort 1,500 packages per day in an 8*6 room, and 10 carts can run on the upper and lower floors.
 								</p>
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/rfid/result.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 3.</strong> Result
-									</figcaption>
-								</figure>
+
 
 								
 
@@ -134,7 +149,7 @@
 								</h3>
 								<p class="text-dark">
 									<strong>
-										Edge Computing Sensor Kit, Information Fusion, Machine Learning, Real-time Activity Recognition, Digital Twin, Data Visualization.
+										Libiao, Dynamic Planning, Positioning, Logistics System
 									</strong>
 								</p>
 
@@ -150,23 +165,34 @@
 								<h4>EXPERIMENT</h4>
 								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/5DnB33XMJsQ" frameborder="0" allowfullscreen></iframe>
 								<p class="px-3  pt-3 text-center">
-									<small><strong>Video 2.</strong> Someone famous in Source Title.</small>
+									<small><strong>Video 1.</strong> Logistics trolley sorting test in a laboratory environment.</small>
 								</p>
 
 								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/mMkBWDUgxWI" frameborder="0" allowfullscreen></iframe>
 								<p class="px-3  pt-3 text-center">
-									<small><strong>Video 2.</strong> Someone famous in Source Title.</small>
+									<small><strong>Video 2.</strong> Collision failure due to tire wear.</small>
 								</p>
 								
 								<figure class="text-center">
-									<img class="img-responsive" src="assets/img/car/1.jpg" alt="" width="100%">
-								</figure>
-								<figure class="text-center">
 									<img class="img-responsive" src="assets/img/car/2.jpg" alt="" width="100%">
 								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 2.</strong> Europe’s largest automated robotic parcel sorting system has been installed in Turkey.</small>
+								</p>
+
+								<figure class="text-center">
+									<img class="img-responsive" src="assets/img/car/1.jpg" alt="" width="100%">
+								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 3.</strong> Libiao robots are sorting Amazon packages.</small>
+								</p>
+
 								<figure class="text-center">
 									<img class="img-responsive" src="assets/img/car/3.jpg" alt="" width="100%">
 								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 4.</strong> Basement type sorting site.</small>
+								</p>
 
 							</div>
 

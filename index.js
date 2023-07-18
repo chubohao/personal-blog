@@ -64,6 +64,10 @@ app.get('/car', function(req, res) {
     res.sendFile(path.resolve(__dirname, "src/car.html"));
 })
 
+app.get('/water', function(req, res) {
+    res.sendFile(path.resolve(__dirname, "src/water.html"));
+})
+
 app.get('/digitalTwin', function(req, res) {
     res.sendFile(path.resolve(__dirname, "src/digitalTwin.html"));
 })
@@ -79,6 +83,7 @@ app.get('/hazer', function(req, res) {
 app.get('/sier', function(req, res) {
     res.sendFile(path.resolve(__dirname, "src/sier.html"));
 })
+
 
 console.log("WELCOME TO BOHAO BLOG SERVER");
 

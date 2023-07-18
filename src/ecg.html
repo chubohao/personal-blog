@@ -179,6 +179,9 @@ names:
 	2: helmet
 </code>
 </pre>
+<p class="px-3  pt-3 text-center">
+	<small><strong>Code 3.</strong> Configurate Dataset.</small>
+</p>
 
 <a href="https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#12-create-labels_1">
 	B. Create Labels
@@ -225,6 +228,9 @@ def convert(size, box):
 	return [x, y, w, h]
 </code>
 </pre>
+<p class="px-3  pt-3 text-center">
+	<small><strong>Code 4.</strong> Convert the image to the format that YOLOv5 needs.</small>
+</p>
 
 
 
@@ -244,15 +250,21 @@ def convert(size, box):
 ../datasets/helmet/labels/im0.txt  # label
 </code>
 </pre>
+<p class="px-3  pt-3 text-center">
+	<small><strong>Code 5.</strong> Organize Directories.</small>
+</p>
 <a href="https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#2-select-a-model">
 	D. Select a Model
 </a>
 <p>
-	Select a pretrained model to start training from. Here we select YOLOv5s, the second-smallest and fastest model available. See our README table for a full comparison of all models.
+	Select a pretrained model to start training from. Here we select YOLOv5s, the second-smallest and fastest model available.
 </p>
 <figure class="figure-img text-center">
 	<img class="img-responsive" src="assets/img/ecg/models.png" alt="" width="100%">
 </figure>
+<p class="px-3  pt-3 text-center">
+	<small><strong>Figure 2.</strong> YOLOv5 models.</small>
+</p>
 
 
 <a href="https://docs.ultralytics.com/yolov5/tutorials/train_custom_data/#3-train">
@@ -271,6 +283,9 @@ def convert(size, box):
 python train.py --img 640 --epochs 3 --data helmet.yaml --weights yolov5s.pt
 </code>
 </pre>
+<p class="px-3  pt-3 text-center">
+	<small><strong>Code 6.</strong> Start train model.</small>
+</p>
 
 							
 
@@ -285,7 +300,7 @@ python train.py --img 640 --epochs 3 --data helmet.yaml --weights yolov5s.pt
 								</h3>
 								<p class="text-dark">
 									<strong>
-										Edge Computing Sensor Kit, Information Fusion, Machine Learning, Real-time Activity Recognition, Digital Twin, Data Visualization.
+										Edge Computing, YOLOv5, CV2, Body Recognition, Face Recognition.
 									</strong>
 								</p>
 
@@ -302,31 +317,71 @@ python train.py --img 640 --epochs 3 --data helmet.yaml --weights yolov5s.pt
 								</h4>
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecg/models.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 3.</strong> YOLOv5 models.</small>
+								</p>
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/ecg/yolo_models.png" alt="" width="101%">
+								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 4.</strong> Comparison of parameters of different models.</small>
+								</p>
+								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecg/yolo5.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 5.</strong> Training and effects of different models in YOLOv5.</small>
+								</p>
+								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecg/yolo.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 6.</strong> Comparison with others version.</small>
+								</p>
+								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecg/yolo1.png" alt="" width="100%">
 								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 7.</strong> Training result on COCO128 dataset.</small>
+								</p>
 
 								<h4>HARDWARE</h4>
-								<p>
-									ECSK can sense, process, and recognize the general activities happening in the environment in real-time like a human, which wi,ECSK can sense, process, and recognize the general activities happening in the environment in real-time like a
-								</p>
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecg/hardware.png" alt="" width="100%">
 								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 8.</strong> Bridging a Wireless NIC to a Wired NIC.</small>
+								</p>
+								<p>
+									We designed a visual gateway based on the Raspberry Pi Computing Module 4 and set the wireless network card to AP mode for connecting the attached camera and connecting to the Internet by bridging with a wired connection.
+								</p>
+								<p>
+									To increase the inference speed of the machine learning model, we added a Google TPU gas pedal with 4TOPS of arithmetic power.
+								</p>
+								<p>
+									At the same time, we added some basic sensors, such as temperature and humidity, motion sensors, GPS, etc. to detect the environment around the gateway, as well as LoRa and 4G capabilities.
+								</p>
+								
 
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecg/title.png" alt="" width="100%">
 								</figure>
-								
-								<p>
-									ECSK can sense, process, and recognize the general activities happening in the environment in real-time like a ECSK can sense, process, and recognize the general activities happening in the environment in real-time like a
+								<p class="px-3 text-center">
+									<small><strong>Figure 9.</strong> 3D model of our gateway.</small>
 								</p>
+								
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecg/gateway-3.png" alt="" width="100%">
 								</figure>
+								<p class="px-3 text-center">
+									<small><strong>Figure 10.</strong> Gateway after soldering.</small>
+								</p>
 
 								<h4>TRAINNING</h4>
+								<p>
+									We used the open source Data Safety-Helmet-Wearing-Dataset. Many thanks to the authors as well as the photo participants. Currently, we just use the training data to train the model briefly, and the effect is as described by the authors all the time, the next step, we will port the model to the web for real-time video recognition.
+								</p>
 								<div class="row m-0 p-0">
 									<img class="img-responsive col-6 py-2" src="assets/img/ecg/5.jpg" alt="" width="100%">
 									<img class="img-responsive col-6 py-2" src="assets/img/ecg/5r.jpg" alt="" width="100%">
@@ -339,7 +394,13 @@ python train.py --img 640 --epochs 3 --data helmet.yaml --weights yolov5s.pt
 									<img class="img-responsive col-6 py-2" src="assets/img/ecg/3.jpg" alt="" width="100%">
 									<img class="img-responsive col-6 py-2" src="assets/img/ecg/3r.jpg" alt="" width="100%">
 								</div>
+								<p class="px-3 text-center">
+									<small><strong>Figure 11.</strong> Model evaluation results.</small>
+								</p>
 								<h4>HARDWARE</h4>
+								<p>
+									TO DO ...
+								</p>
 								
 							</div>
 						</div>

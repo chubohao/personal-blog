@@ -28,7 +28,7 @@
 
 		<main>
 			<div class="section px-0">
-				<div id="post-header" class="page-header pt-5 py-md-5" style="background-image: url('assets/img/arima/bg.png'); background-color:#000;background-position-x: 90%;">
+				<div id="post-header" class="page-header pt-5" style="background-image: url('assets/img/arima/bg.png'); background-color:#000;background-position-x: 90%;">
 					<div class="container">
 						<div class="row">
 							<div class="col-md-10 col-sm-11 post-meta">
@@ -40,7 +40,7 @@
 									Fusion ARIMA-LSTM model for supply chain demand forecasting
 								</h3>
 								<p>
-									<span class="text-light">Bohao Chu, Yichen Wang</span>
+									<span class="text-light">Bohao Chu, Yichen Wang, and Mandar Jawale</span>
 								</p>
 								<button type="button" class="btn btn-light btn-lg btn-circle me-3">
                                     <span class="fa fa-file-pdf-o"></span>
@@ -61,22 +61,19 @@
 					<!-- row -->
 					<div class="row">
 						<!-- POST MAIN -->
-						<div class="col-md-6 pe-md-4">
+						<div class="col-md-8">
 
 							<h3>INTRODUCTION</h3>
 
 							<div class="section-row">
 								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/cvae/1.png" alt="" width="90%">
-									<figcaption class="my-3">
-										<strong>Figure 1.</strong> The relationship between the complexity of <br> networking and deployment and the number of sensors or sensing purposes.
-									</figcaption>
+									<img class="img-responsive" src="assets/img/arima/result.png" alt="" width="100%">
 								</figure>
 							</div>
 
 							<div class="row">
 								<p>
-									Predicting realistic human movement is an important task to devise safe autonomous robots in society. Human movement is generally influenced by social rules, most importantly avoiding collisions. In order to predict realistic human movement, the predictions need to follow those social rules. We introduce a new generative approach to predict human trajectories that are collision-free, multimodal and realistic, as they achieve high accuracy in densely crowded datasets. We achieve this by using a pooling module, that encodes human interaction and scene context and further enforce our goal by using a collision loss. The second aspect, namely multimodality is important as human movement is stochastic. To generate multimodal outputs our model uses a Conditional Variational Auto Encoder (CVAE). A CVAE can generate different predictions for the same input, by reducing the dimension of the input into a latent space, thus making the predictions multimodal. Based on this our model can predict a variety of possible future steps and also a distribution, leading to safer robot movement planning in application. We achieve concrete future steps for evaluation by sampling from the generated distribution. Many earlier approaches did not take human collision into account making their predictions unrealistic. Our model achieves comparable results in evaluation while also accounting for the important features of multimodality and collision-avoidance in human trajectory prediction.
+									As the source of demand that drives the supply system of an enterprise, forecasting the demand for goods at upstream and downstream nodes is the basis for all members of the supply chain to make business decisions such as ordering strategies, inventory management, and distribution planning. With the rapid development of the Internet economy and the further integration of industry and the Internet, customers' purchasing behavior has become more strategic, which makes the uncertainty of demand increase and greatly increases the difficulty of predicting customer demand. At the same time, the agility of the supply chain of enterprises has also raised higher requirements. Therefore, how to achieve a more accurate prediction of customer purchases is of great practical significance for the rational formulation of supply chain operations and management strategies.
 								</p>
 
 								<h3 class="mt-4">METHOD</h3>
@@ -113,7 +110,7 @@
 						</div>
 
 						<!-- POST ASIDE -->
-						<div class="col-md-6 ps-md-4">
+						<div class="col-md-4">
 							<div class="row mb-5">
 								<h3 class="mt-4">EXPERIMENT</h3>
 								<div class="row text-center">
