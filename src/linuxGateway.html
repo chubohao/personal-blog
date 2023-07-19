@@ -19,16 +19,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-dark.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
     </head>
 
 
     <body>
 
         <header class="fixed-top header"></header>
-
 		<main>
 			<div class="section px-0">
-				<div id="post-header" class="page-header pt-5" style="background-image: url('assets/img/lora/bg.png'); background-position-y: 75%; background-position-x: 83%; background-size: auto 60%">
+				<div id="post-header" class="page-header pt-5" style="background-image: url('assets/img/lora/bg.png'); background-position-y: 75%; background-position-x: 85%; background-size: auto 50%">
 					<div class="container">
 						<div class="row">
 							<div class="col-md-10 col-sm-11 post-meta">
@@ -199,17 +201,85 @@
 								</p>
 
 								<span class="text-muted">3. Root File System</span>
-								<p>
-									
-								</p>
+								<a href="https://blog.csdn.net/weixin_44498318/article/details/116298756">Reference Linux Rootfs</a>
+
+<div class="row">
+<pre class="hljs card m-2">
+<code>
+# download ubuntu-base package
+wget https://cdimage.ubuntu.com/ubuntu-base/releases/22.04/release/ubuntu-base-22.04-base-arm64.tar.gz
+mkdir ubuntu_base_rootfs
+
+# unzip package
+sudo tar xzf ubuntu-base-22.04-base-arm64.tar.gz -C ./ubuntu_base_rootfs/
+cd ubuntu_base_rootfs/
+</code>
+</pre>
+
+<pre class="hljs card m-2">
+<code>
+sudo apt install qemu-user-static
+# 把对应CPU架构的qemu程序拷贝过去
+sudo cp /usr/bin/qemu-arm-static ./usr/bin/
+sudo cp /etc/resolv.conf ./etc/resolv.conf
+</code>
+</pre>
+
+<pre class="hljs card m-2">
+<code>
+sudo mount -t proc /proc ./proc
+sudo mount -t sysfs /sysfs ./sys
+sudo mount -o bind /dev ./dev
+sudo mount -o bind /dev/pts ./dev/pts
+sudo chroot ./ 		# 此时当前目录是在ubuntu-base目录下	
+pt update
+apt install sudo vim kmod net-tools ethtool ifupdown language-pack-en-base rsyslog iputils-ping
+passwd root
+echo "yourhostname" > /etc/hostname
+echo "127.0.0.1 localhost" >> /etc/hosts
+echo "127.0.0.1 yourhostname" >> /etc/hosts
+ln -s /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/getty@ttymxc0.service
+</code>
+</pre>
+
+<pre class="hljs card m-2">
+<code>
+exit 	# 退出前面的chroot修改的根目录
+sudo umount ./proc
+sudo umount ./sys
+sudo umount ./dev/pts
+sudo umount ./dev
+</code>
+</pre>
+</div>
+
 								
 								
 
 
 
 
+<div class="row mt-3">
+<h4>Gateway Applications</h4>
+<pre class="hljs card m-2">
+<code>
+git clone https://github.com/Lora-net/lora_gateway
+make
+# change pin number to 123
+./reset_lgw.sh
+</code>
+</pre>
 
-								<h4>Gateway Applications</h4>
+<pre class="hljs card m-2">
+<code>
+git clone https://github.com/Lora-net/packet_forwarder.git
+make
+# change server ip to bohao.de
+./lora_pkt_fwd/lora_pkt_fwd
+</code>
+</pre>
+</div>
+
 
 					
 
@@ -233,15 +303,41 @@
 
 								<h4>HARDWARE</h4>
 								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/lora/hardware.jpg" alt="" width="100%">
-									<p class="px-3 pt-3 text-center">
-										<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
-									</p>
+									<img class="img-responsive" src="assets/img/lora/title.jpg" alt="" width="100%">
 								</figure>
-
-								<p>
-									To facilitate the deployment of our Edge Computing Sensor Kit, we designed it to be as small as possible without compromising its performance. In the end, the size of our board was kept to 40 mm wide and 55 mm long, which is smaller than a bank card. 
+								<p class="px-3 pt-3 text-center">
+									<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
 								</p>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/lora/main.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 pt-3 text-center">
+									<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
+								</p>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/lora/4G.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 pt-3 text-center">
+									<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
+								</p>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/lora/lora.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 pt-3 text-center">
+									<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
+								</p>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/lora/485.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 pt-3 text-center">
+									<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
+								</p>
+
+
 							</div>
 
 
