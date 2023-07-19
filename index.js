@@ -9,7 +9,7 @@ app.use(express.static(__dirname + '/src'));
 
 
 // HTTP and HTTPS Listen
-http.createServer(app).listen(8080);
+http.createServer(app).listen(80);
 
 app.get('/', function(req, res) {
     res.sendFile(path.resolve(__dirname, "index.html"));
@@ -42,6 +42,10 @@ app.get('/blelock', function(req, res) {
 
 app.get('/twins', function(req, res) {
     res.sendFile(path.resolve(__dirname, "src/twins.html"));
+})
+
+app.get('/stream', function(req, res) {
+    res.sendFile(path.resolve(__dirname, "src/stream.html"));
 })
 
 app.get('/arvato', function(req, res) {
@@ -82,6 +86,14 @@ app.get('/hazer', function(req, res) {
 
 app.get('/sier', function(req, res) {
     res.sendFile(path.resolve(__dirname, "src/sier.html"));
+})
+
+app.get('/wifi', function(req, res) {
+    res.sendFile(path.resolve(__dirname, "src/wifi.html"));
+})
+
+app.get('/riscv', function(req, res) {
+    res.sendFile(path.resolve(__dirname, "src/riscv.html"));
 })
 
 
