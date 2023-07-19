@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Bohao Chu, and Bootstrap contributors">
     <title>Linux Gateway | Bohao Chu</title>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
     <!-- Custom style sheet -->
     <link type="text/css" rel="stylesheet" href="assets/css/style.css"/>
@@ -15,18 +15,28 @@
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:700%7CNunito:300,600" rel="stylesheet">
 
-    <!--Title Icon-->
+    <!-- Title Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-dark.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+	
+	<!-- Highlight JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<link rel="stylesheet" href="assets/highlight/styles/default.min.css">
+	<script src="assets/highlight/highlight.min.js"></script>
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script>
+		hljs.highlightAll();
+		addEventListener("DOMContentLoaded", function() {
+			$(".header").load("components/header.html",function(){});
+			$(".footer").load("components/footer.html",function(){});
+		});
+	</script>
+	
     </head>
 
 
     <body>
-
+		
         <header class="fixed-top header"></header>
 		<main>
 			<div class="section px-0">
@@ -58,7 +68,7 @@
 				</div>
 			</div>
 
-			<div class="section">
+			<div class="section px-0">
 				<!-- container -->
 				<div class="container">
 					<!-- row -->
@@ -144,12 +154,12 @@
 									From the perspective of developers, Linux consists of three parts: Boot Loader, Linux Kernel, and Root File System. The Boot Loader and Linux Kernel are closely related to hardware.
 								</p>
 
-								<span href="" class="text-muted">1. U-Boot</span>
+								<h4 href="" class="text-muted">1. U-Boot</h4>
 								<figure>
 									<img src="assets/img/lora/uboot-3.png" width="100%">
 								</figure>
 								<p class="px-3 text-center">
-									<small><strong>Figure 2.</strong> ARIMA-LSTM Model Structure.</small>
+									<small><strong>Figure 2.</strong> Uboot Components.</small>
 								</p>
 
 								<p>
@@ -161,7 +171,7 @@
 									<img src="assets/img/lora/uboot-2.png" class="col-md-6">
 								</figure>
 								<p class="px-3 text-center">
-									<small><strong>Figure 2.</strong> ARIMA-LSTM Model Structure.</small>
+									<small><strong>Figure 3.</strong> NXP.iMX6ULL Memory Addresses and Corresponding Runs.</small>
 								</p>
 								
 								<span>
@@ -185,7 +195,7 @@
 
 
 								
-								<span class="text-muted">2. Kernel</span>
+								<h4 class="text-muted">2. Kernel</h4>
 								<p>
 									The Linux kernel is a free and open-source: 4  monolithic, modular, multitasking, Unix-like operating system kernel. It was originally authored in 1991 by Linus Torvalds for his i386-based PC, and it was soon adopted as the kernel for the GNU operating system, which was written to be a free (libre) replacement for Unix.
 								</p>
@@ -197,72 +207,96 @@
 									<img src="assets/img/lora/kernel-1.png" width="100%">
 								</figure>
 								<p class="px-3 text-center">
-									<small><strong>Figure 2.</strong> ARIMA-LSTM Model Structure.</small>
+									<small><strong>Figure 4.</strong> Components and Roles of the Linux Kernel.</small>
 								</p>
 
-								<span class="text-muted">3. Root File System</span>
-								<a href="https://blog.csdn.net/weixin_44498318/article/details/116298756">Reference Linux Rootfs</a>
-
-<div class="row">
-<pre class="hljs card m-2">
-<code>
-# download ubuntu-base package
+								<h4 class="text-muted">3. Root File System</h4>
+								<p>
+									Cite Article <a href="https://wiki.ubuntu.com/Base">Ubuntu Base</a>
+								</p>
+								<p>
+									Ubuntu Base is a minimal rootfs for use in the creation of custom images for specific needs. Ubuntu Base strives to create a suitable minimal environment for use in Board Support Packages, constrained or integrated environments, as the basis for application demonstration images, or Linux containers such as LXC or Docker (For OCI/docker container images, see also the Ubuntu OCI project). It is available for the i386, amd64, armhf, arm64, powerpc and ppc64el architectures.
+								</p>
+								<p>
+									Ubuntu Base delivers a functional user-space environment, with full support for installation of additional software from the Ubuntu repositories, through the use of the apt-get command.
+								</p>
+								
+<p>
+	1. Downlaod <a href="https://cdimage.ubuntu.com/ubuntu-base/releases/22.04/release/">Ubuntu-base-22.04</a>
+</p>
+<pre>
+<code class='bash card bg-dark text-light'>
 wget https://cdimage.ubuntu.com/ubuntu-base/releases/22.04/release/ubuntu-base-22.04-base-arm64.tar.gz
 mkdir ubuntu_base_rootfs
-
-# unzip package
 sudo tar xzf ubuntu-base-22.04-base-arm64.tar.gz -C ./ubuntu_base_rootfs/
 cd ubuntu_base_rootfs/
 </code>
 </pre>
 
-<pre class="hljs card m-2">
-<code>
+<p>
+	2. Install qeumu, a generic and open source machine emulator and virtualizer.
+</p>
+<pre>
+<code class='bash card bg-dark text-light'>
 sudo apt install qemu-user-static
-# 把对应CPU架构的qemu程序拷贝过去
 sudo cp /usr/bin/qemu-arm-static ./usr/bin/
 sudo cp /etc/resolv.conf ./etc/resolv.conf
 </code>
 </pre>
 
-<pre class="hljs card m-2">
-<code>
+<p>
+	3. Mount the Ubuntu-base filesystem on the host computer.
+</p>
+<pre>
+<code class='bash card bg-dark text-light'>
 sudo mount -t proc /proc ./proc
 sudo mount -t sysfs /sysfs ./sys
 sudo mount -o bind /dev ./dev
 sudo mount -o bind /dev/pts ./dev/pts
-sudo chroot ./ 		# 此时当前目录是在ubuntu-base目录下	
-pt update
+sudo chroot ./
+</code>
+</pre>
+
+<p>
+	4. Installing frequently used software to the ubuntu-base filesystem.
+</p>
+<pre>
+<code class='bash card bg-dark text-light'>
+apt update
 apt install sudo vim kmod net-tools ethtool ifupdown language-pack-en-base rsyslog iputils-ping
 passwd root
-echo "yourhostname" > /etc/hostname
+echo "linux" > /etc/hostname
 echo "127.0.0.1 localhost" >> /etc/hosts
-echo "127.0.0.1 yourhostname" >> /etc/hosts
+echo "127.0.0.1 linux" >> /etc/hosts
 ln -s /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/getty@ttymxc0.service
 </code>
 </pre>
 
-<pre class="hljs card m-2">
-<code>
-exit 	# 退出前面的chroot修改的根目录
+<p>
+	5. Unmount Ubuntu-base from the host computer.
+</p>
+<pre>
+<code class='bash card bg-dark text-light'>
+exit
 sudo umount ./proc
 sudo umount ./sys
 sudo umount ./dev/pts
 sudo umount ./dev
 </code>
 </pre>
-</div>
-
-								
-								
-
-
 
 
 <div class="row mt-3">
 <h4>Gateway Applications</h4>
-<pre class="hljs card m-2">
-<code>
+<p>
+	The main role of our gateway is to be a centralizer for different protocols, including LoRa, 485 and others. It also integrates 4G module for internet communication.
+</p>
+
+<p>
+	1. LoRaWAN Integrator Application
+</p>
+<pre>
+<code class='bash card bg-dark text-light'>
 git clone https://github.com/Lora-net/lora_gateway
 make
 # change pin number to 123
@@ -270,8 +304,8 @@ make
 </code>
 </pre>
 
-<pre class="hljs card m-2">
-<code>
+<pre>
+<code class='bash card bg-dark text-light'>
 git clone https://github.com/Lora-net/packet_forwarder.git
 make
 # change server ip to bohao.de
@@ -306,35 +340,37 @@ make
 									<img class="img-responsive" src="assets/img/lora/title.jpg" alt="" width="100%">
 								</figure>
 								<p class="px-3 pt-3 text-center">
-									<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
+									<small ><strong>Figure 5.</strong> Linux Gateway Physical Drawing.</small>
 								</p>
 
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/lora/main.png" alt="" width="100%">
 								</figure>
 								<p class="px-3 pt-3 text-center">
-									<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
-								</p>
-
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/lora/4G.png" alt="" width="100%">
-								</figure>
-								<p class="px-3 pt-3 text-center">
-									<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
+									<small ><strong>Figure 6.</strong> Schematic diagram of IMX6ULL core connection.</small>
 								</p>
 
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/lora/lora.png" alt="" width="100%">
 								</figure>
 								<p class="px-3 pt-3 text-center">
-									<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
+									<small ><strong>Figure 7.</strong> Schematic diagram of lora module connection.</small>
 								</p>
+
+								<figure class="figure-img text-center">
+									<img class="img-responsive" src="assets/img/lora/4G.png" alt="" width="100%">
+								</figure>
+								<p class="px-3 pt-3 text-center">
+									<small ><strong>Figure 8.</strong> Schematic diagram of 4G module connection.</small>
+								</p>
+
+								
 
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/lora/485.png" alt="" width="100%">
 								</figure>
 								<p class="px-3 pt-3 text-center">
-									<small ><strong>Figure 6.</strong> Schematic of our sensor board and the layout of the sensors and other modules.</small>
+									<small ><strong>Figure 6.</strong> Schematic diagram of 485 module connection.</small>
 								</p>
 
 
@@ -353,13 +389,6 @@ make
 
 
         <footer class="section bg-secondary mt-5 footer"></footer>
-        <script src="assets/js/bootstrap.bundle.min.js"></script>
-        <script>
-            addEventListener("DOMContentLoaded", function() {
-                $(".header").load("components/header.html",function(){});
-                $(".footer").load("components/footer.html",function(){});
-            });
-        </script>
 
     </body>
 </html>

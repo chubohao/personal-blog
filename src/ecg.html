@@ -17,10 +17,20 @@
     <!--Title Icon-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-dark.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+
+    <!-- Highlight JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<link rel="stylesheet" href="assets/highlight/styles/default.min.css">
+	<script src="assets/highlight/highlight.min.js"></script>
+	
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script>
+		hljs.highlightAll();
+		addEventListener("DOMContentLoaded", function() {
+			$(".header").load("components/header.html",function(){});
+			$(".footer").load("components/footer.html",function(){});
+		});
+	</script>
 	</head>
 
     <body>
@@ -58,7 +68,7 @@
 				</div>
 			</div>
 
-			<div class="section">
+			<div class="section px-0">
 				<!-- container -->
 				<div class="container">
 					<!-- row -->
@@ -421,14 +431,5 @@ python train.py --img 640 --epochs 3 --data helmet.yaml --weights yolov5s.pt
 
 
         <footer class="section bg-secondary mt-5 footer"></footer>
-        <script src="assets/js/bootstrap.bundle.min.js"></script>
-        <script>
-			hljs.initHighlightingOnLoad();
-            addEventListener("DOMContentLoaded", function() {
-                $(".header").load("components/header.html",function(){});
-                $(".footer").load("components/footer.html",function(){});
-            });
-        </script>
-
     </body>
 </html>
