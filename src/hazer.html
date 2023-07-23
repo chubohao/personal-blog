@@ -37,7 +37,7 @@
 								<br><br>
 								<h1>Indoor Haze Detector</h1>
 								<h3 class="text-light pt-3">
-									General Activity Recognition Based on Integrated Multi-sensor Information Fusion
+									Dual Purpose Indoor Haze Detection and Pen Holder
 								</h3>
 								<p>
 									<span class="text-light">
@@ -71,41 +71,29 @@
 									BACKGROUND
 								</h4>
 								<p>
-									In traditional IoT scenarios, Specific-Purpose Sensor (SPS) or Distributed Multi-Sensor (DMS) are usually deployed directly on different locations or objects to sense diverse purposes, However, the number of sensing purposes always conflict with the complexity of networking and deployment. Integrated Multi-Sensor Tag (IMST) alleviates this problem, such as Texas Instruments <i>SimpleLink SensorTag</i>, and Laput's <i>Synthetic Sensors</i>, with multiple sensors integrated on a small board to indirectly monitor a large context,  without direct instrumentation of objects. But due to the limited computing power of IMST, a large amount of raw data still needs to be sent to the remote server for processing through wireless technologies such as <i>Bluetooth</i> or <i>WiFi</i>, which may lead to processing delays, data leakage or intrusion.
+									Due to industrial development, air pollution in China has become more and more serious in recent years. Air pollution has resulted in huge human and financial costs in China. The World Health Organization (WHO) has been tracking air quality since 2013 to assess its impact on heart disease, stroke, lung cancer and other respiratory diseases. In 2015, more than 1.1 million deaths in China and India were linked to air pollution, accounting for half of the world's total air pollution deaths that year.
 								</p>
 
 								<h4>
-									MOTIVATION
+									MOTIVATION & GOALS
 								</h4>
 								<p>
-									With the rapid increase in computing power of end devices, many machine learning models are popular for inference on end devices. With the help of real-time data from sensors, the activities that are happening in the environment can be analyzed and recognized in real-time, which has a lot of demand and promise in the field of autonomous driving, sports, healthcare, etc.
+									Even indoors, air pollution is still serious but people tend to ignore it. Detecting indoor PM2.5 indicators in real time thus helps people to take some necessary measures such as wearing masks as well as turning on air purifiers.
 								</p>
 
 								<h3 class="mt-4">METHOD</h3>
-
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/ecsk/system_architecture.png" alt="" width="100%">
-									<p class="px-3 pt-3 text-center">
-										<small><strong>Figure 2.</strong> System Architecture of ECSK.</small>
-									</p>
-								</figure>
-
-								
-
 								<p>
-									In this work, we explore the concept of <strong>Edge Computing Sensor Kit (ECSK)</strong> based on the former work. We designed a new type of hardware that integrates several different types of sensors, including a camera and a microphone, on a small board, while adding a powerful processor and Tensor Processing Unit, which allows algorithmic models and applications to run directly on it instead of on a remote server. Each sensor has a task channel, and multiple sensors can independently perform data sampling and feature extraction with concurrency. Feature data from different sensor channels are used to achieve real-time recognition of general activities in the environment (e.g., robotic arm movement) by a machine learning based multi-sensor information fusion algorithm.
+									We have designed a small PCB using STM32 as the main controller, the PCB is connected to a haze detection sensor for real time detection of PM2.5 values in the environment. A piece of ESP8266 is also embedded for connecting to the internet and transmitting the data to the server.
 								</p>
-
-								
-								
-
-
+								<p>
+									In addition, we modified an existing penlight with a small screen to display the real-time PM2.5 value, which is both convenient and practical.
+								</p>
 								<h3 class="mt-4">
 									KEYWORDS
 								</h3>
 								<p class="text-dark">
 									<strong>
-										Edge Computing Sensor Kit, Information Fusion, Machine Learning, Real-time Activity Recognition, Digital Twin, Data Visualization.
+										Indoor Haze Detector, PM2.5, STM32, ESP8266
 									</strong>
 								</p>
 
@@ -115,45 +103,38 @@
 
 						<!-- POST ASIDE -->
 						<div class="col-md-4">
+							
 							<div class="row mb-3">
 								<h3>MATERIALS</h3>
+								<p>
+									Photos and video taken at the 2017 Zhengzhou University IoT Innovation Laboratory.
+								</p>
 								<h4>EXPERIMENT</h4>
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/hazer/v1.jpg" alt="" width="100%">
 									<p class="px-3 pt-3 text-center">
-										<small><strong>Figure 1.</strong> The relationship between the complexity of <br> networking and deployment and the number of sensors or sensing purposes.</small>
+										<small><strong>Figure 1.</strong> First generation prototype made from scrap paper.</small>
 									</p>
 								</figure>
 								<figure class="figure-img text-center row p-0 m-0">
 									<img class="img-responsive col-6" src="assets/img/hazer/v2.jpg" alt="" width="100%">
 									<img class="img-responsive col-6" src="assets/img/hazer/v3.jpg" alt="" width="100%">
 									<p class="px-3 pt-3 text-center">
-										<small><strong>Figure 1.</strong> The relationship between the complexity of <br> networking and deployment and the number of sensors or sensing purposes.</small>
+										<small><strong>Figure 2.</strong> Second-generation prototype made from a metal box.</small>
 									</p>
 								</figure>
 
 								<h4>HARDWARE</h4>
 								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/AtMDfbsj8cQ" style="border:none" allowfullscreen></iframe>
 								<p class="px-3  pt-3 text-center">
-									<small><strong>Video 1.</strong> Someone famous in Source Title.</small>
+									<small><strong>Video 1.</strong> Third-generation prototype made on the basis of a pen holder.</small>
 								</p>
 
 								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/fOx7lLYkY-0" style="border:none" allowfullscreen></iframe>
 								<p class="px-3  pt-3 text-center">
-									<small><strong>Video 1.</strong> Someone famous in Source Title.</small>
+									<small><strong>Video 2.</strong> Third-generation prototype made on the basis of a pen holder.</small>
 								</p>
-
-								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/W5ro3Wg23LI" style="border:none" allowfullscreen></iframe>
-								<p class="px-3  pt-3 text-center">
-									<small><strong>Video 1.</strong> Someone famous in Source Title.</small>
-								</p>
-
-								
 							</div>
-
-
-
-
 						</div>
 						<!-- /aside -->
 					</div>

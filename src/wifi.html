@@ -27,16 +27,16 @@
 
 		<main>
 			<div class="section px-0">
-				<div id="post-header" class="page-header pt-5" style="background-image: url('assets/img/twins/bg.png'); background-position-y: 75%; background-position-x: 90%; background-color:darkgrey; background-size: auto 80%">
+				<div id="post-header" class="page-header pt-5" style="background-image: url('assets/img/tinywifi/bg1.png'); background-position-y: 70%; background-position-x: 85%; background-color:darkgrey; background-size: auto 75%">
 					<div class="container">
 						<div class="row">
-							<div class="col-md-10 col-sm-11 post-meta">
-								<a class="post-category cat-2" href="#">Machine Learning</a>
-								<span class="post-date">Oct 3, 2022 </span>
+							<div class="col-md-8 post-meta">
+								<a class="post-category cat-2" href="#">FPGA</a>
+								<span class="post-date">October, 2022 </span>
 								<br><br>
-								<h1>Edge Computing Sensor Kit</h1>
+								<h1>Customized Tiny WiFi</h1>
 								<h3 class="text-light pt-3">
-									General Activity Recognition Based on Integrated Multi-sensor Information Fusion
+									Exploring SDR Based Linux mac80211 Compatible Full Stack IEEE802.11/Wi-Fi Design.
 								</h3>
 								<p>
 									<span class="text-light">
@@ -71,14 +71,14 @@
 									BACKGROUND
 								</h4>
 								<p>
-									In traditional IoT scenarios, Specific-Purpose Sensor (SPS) or Distributed Multi-Sensor (DMS) are usually deployed directly on different locations or objects to sense diverse purposes, However, the number of sensing purposes always conflict with the complexity of networking and deployment. Integrated Multi-Sensor Tag (IMST) alleviates this problem, such as Texas Instruments <i>SimpleLink SensorTag</i>, and Laput's <i>Synthetic Sensors</i>, with multiple sensors integrated on a small board to indirectly monitor a large context,  without direct instrumentation of objects. But due to the limited computing power of IMST, a large amount of raw data still needs to be sent to the remote server for processing through wireless technologies such as <i>Bluetooth</i> or <i>WiFi</i>, which may lead to processing delays, data leakage or intrusion.
+									We researched a large number of WIFI modules when doing CSI-based human activity recognition, but most commercial WIFI modules are not open source, and it is difficult to adjust the parameters of the medium WIFI, which resulted in us not being able to further improve the improvement and utilization of CSI. Therefore, we hope to find an open source WIFI chip that allows us to customize some parameters.
 								</p>
 
 								<h4>
-									MOTIVATION
+									MOTIVATION & GOALS
 								</h4>
 								<p>
-									With the rapid increase in computing power of end devices, many machine learning models are popular for inference on end devices. With the help of real-time data from sensors, the activities that are happening in the environment can be analyzed and recognized in real-time, which has a lot of demand and promise in the field of autonomous driving, sports, healthcare, etc.
+									Fortunately, there are already people exploring the field. Jiao Xianjun designed Linux mac80211 compatible full-stack IEEE802.11/Wi-Fi based on SDR (Software Defined Radio). This work only refers to his open source project openwifi to explore the principle of realizing WIFI IP in FPGA, and does not make further innovation.
 								</p>
 
 								<h3 class="mt-4">METHOD</h3>
@@ -86,7 +86,7 @@
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/tinywifi/arch.jpg" alt="" width="100%">
 									<p class="px-3 pt-3 text-center">
-										<small><strong>Figure 2.</strong> System Architecture of ECSK.</small>
+										<small><strong>Figure 1.</strong> System Architecture of Openwifi.</small>
 									</p>
 								</figure>
 
@@ -98,7 +98,7 @@
 								</h3>
 								<p class="text-dark">
 									<strong>
-										Edge Computing Sensor Kit, Information Fusion, Machine Learning, Real-time Activity Recognition, Digital Twin, Data Visualization.
+										OpenWiFi, FPGA, CSI,Human Activity Recognition
 									</strong>
 								</p>
 
@@ -112,16 +112,19 @@
 
 							<div class="row mb-3">
 								<h4>EXPERIMENT</h4>
+								<p>
+									The video was shot in 2022 in Duisburg, Germany, on the development board model ANTSDR AD9361, courtesy of the Zhengzhou University IoT Innovation Experiment.
+								</p>
 
-								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/w3l11UCmoZk" style="border:none" allowfullscreen></iframe>
+								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/s__ebFTN-w0" style="border:none" allowfullscreen></iframe>
 								<p class="px-3  pt-3 text-center">
-									<small><strong>Video 1.</strong> Someone famous in Source Title.</small>
+									<small><strong>Video 1.</strong> Realization of WIFI router function.</small>
 								</p>
 
 
-								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/K5Jz9xgwFzI" frameborder="0" allowfullscreen></iframe>
+								<iframe width="100%" height="250px" src="https://www.youtube.com/embed/s__ebFTN-w0" frameborder="0" allowfullscreen></iframe>
 								<p class="px-3  pt-3 text-center">
-									<small><strong>Video 2.</strong> Someone famous in Source Title.</small>
+									<small><strong>Video 2.</strong> CSI Acquisition.</small>
 								</p>
 							</div>
 

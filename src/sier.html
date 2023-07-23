@@ -18,7 +18,19 @@
     <!--Title Icon-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<!-- Highlight JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<link rel="stylesheet" href="assets/highlight/styles/default.min.css">
+	<script src="assets/highlight/highlight.min.js"></script>
+	
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script>
+		hljs.highlightAll();
+		addEventListener("DOMContentLoaded", function() {
+			$(".header").load("components/header.html",function(){});
+			$(".footer").load("components/footer.html",function(){});
+		});
+	</script>
     </head>
 
 
@@ -28,17 +40,16 @@
 
 		<main>
 			<div class="section px-0">
-				<div id="post-header" class="page-header page-header-light pt-5" style="background-image: url('assets/img/dator/3.png'); background-color: #100c2a; background-position-x: 90%; background-position-y: 90%; background-size: auto 85%">
+				<div id="post-header" class="page-header page-header-light pt-5" style="background-image: url('assets/img/sier/bg.png'); background-color: #100c2a; background-position-x: 85%; background-position-y: 90%; background-size: auto 80%">
 					<div class="container">
 						<div class="row">
 							<div class="col-md-10 col-sm-11 post-meta">
-								<a class="post-category cat-2" href="#">Data Mining</a>
-								<a class="post-category cat-1" href="#">Web Server</a>
-								<span class="post-date text-light">Oct 3, 2022 </span>
+								<a class="post-category cat-5" href="#">Web Server</a>
+								<span class="post-date text-light">July, 2023</span>
 								<br><br>
-								<h1 class="text-light">Modular Data Analysis Platform</h1>
+								<h1 class="text-light">GPT SIER</h1>
 								<h3 class="text-light pt-3">
-									Receiving, storing, displaying and analyzing various sensor data.
+									Personal Chatbot based on GPT 3.5 Turbo Natural Language Large Model.
 								</h3>
 								<p>
 									<span class="text-light">
@@ -64,89 +75,214 @@
 								<i class="bi bi-signpost-fill me-2"></i>
 								GPT SIER
 							</a>
-							<div class="section-row">
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/dator/title.png" alt="" width="100%">
-									<figcaption class="my-3">
-										<strong>Figure 1.</strong> Web UI Preview.
-									</figcaption>
-								</figure>
-							</div>
 
 							<div class="row">
 								<h4>
 									BACKGROUND
 								</h4>
 								<p>
-									I have been exposed to a wide variety of sensors since I entered college in 2016. We do a lot of interesting things with these sensors, such as measuring the distance from obstacles with ultrasonic sensors, which enables cars to avoid obstacles automatically, and tracking people through infrared sensors to open doors or air conditioners. However, we only did a simple logical analysis of the data on the terminal, like operating in a blind box, and there was no place to host them, visualize them, and further mining them. As the amount of sensor data increases dramatically, it is necessary to store, visualize, and then mine information from large amounts of data.
+									The GPT model is a natural language processing model based on deep learning, which has unprecedented powerful language generation capabilities. This model can process a large amount of text data, and can learn language rules and patterns from it, and then generate text content with grammatical correctness, context coherence and logic. Compared with previous natural language processing technologies, the GPT model is closer to the understanding and expression of human language.
+								</p>
+								<p>
+									When the GPT model came out, it represented a major milestone in AI technology, as it showed that AI could interact and communicate with humans through natural language. This is an unprecedented challenge to human intelligence, and it also means that the knowledge accumulated by humans over thousands of years can become the basis for further training of AI. At the same time, this knowledge is more structured and logical, which opens a new door for the application of artificial intelligence.
 								</p>
 
 								<h4>
-									MOTIVATION
+									MOTIVATION & GOALS
 								</h4>
 								<p>
-									In fact, there are many excellent data visualization and data processing platforms. For example, PowerBI and Tableau. However, it is not very user-friendly for custom function modules. Because of the variety of data from different sensors in different scenarios, we need to write special data processing methods for this and present the data the way we want it. We plan to create many microservices. (e.g. convolution, noise reduction, pooling, etc.) Data processing and visualization modules for developers to implement them.
+									This work deploys a personal chatbot based on the GPT-3.5 Turbo API. Multiple rounds of dialogue are possible (I set up 5 rounds), as well as streaming responses. In July, I will be experimenting with the GPT-4 model, along with speech recognition and image generation.
 								</p>
 
 								<h3 class="mt-4">METHOD</h3>
-
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/dator/arch.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 2.</strong> The system architecture consists of data sources, backends, and frontends.
-									</figcaption>
-								</figure>
 
 								<h4>
 									Front End
 								</h4>
 								<p>
-									At the front end, we are divided into four modules: user management module, device management module, data management module, and customized service module. The user management module implements functions such as user registration, deregistration, group, and authorization. Through the device management module, we can register data devices. After the registration is complete, the corresponding ID and key are allocated. After the registration is successful, different types of devices can use some basic data analysis microservices provided by we. It is worth mentioning that the devices can be hardware devices (such as cameras and sensors). It can also be a virtual device (for example, an HTTP request). The data management module can process data under the device, including data calculation and processing. In the service management module, users can write customized services based on their own data, which is our focus in the future. By the way, our front-end technology stack is: <strong>Vite4 + Vue3 + Bootstrap5 + SCSS</strong>.
+									VUE3 + VITE4
 								</p>
+<pre>
+	<code class='python card bg-dark text-light'>
+export default {
+	data() {
+		return {
+		id: Math.floor(Math.random() * 100) + 1,
+		isTalking: false,
+		messageContent: "",
+		roleAlias: { user: "ME", assistant: "GPT SIER", system: "System" },
+		md: md,
+		messageList: [
+			{
+			role: "assistant",
+			content: `Hi，I am an AI natural language model, I can provide some common services and information.`,
+			},
+		],
+		};
+	},
+	watch: {
+		messageList : {
+		handler(newVal, oldVal) {
+			this.scrollToBottom()
+		},
+		deep: true,
+		immediate: true
+		}
+	},
+	methods: {
+		send() {
+		if (!this.messageContent.length) return;
+		this.sendChatMessage();
+		},
+		appendLastMessageContent(content: string){
+		this.messageList[this.messageList.length - 1].content += content;
+		},
+		sendChatMessage() {
+		try {
+			const question = this.messageContent;
+			this.isTalking = true;
+			if (this.messageList.length === 2) {
+			this.messageList.pop();
+			}
+			this.messageList.push({ role: "user", content: question});
+			this.clearMessageContent();
+			this.messageList.push({ role: "assistant", content: "" });
+			
+			fetch('/api', {
+				method: 'POST',
+				body: JSON.stringify({"id": this.id, question: question}),
+				headers: {'Content-Type': 'application/json'}
+			}).then(response => {
+				const reader = response.body.getReader();
+				const processChunk = async () => {
+				const { done, value } = await reader.read();
+				if (done) {return;}
+				this.appendLastMessageContent(new TextDecoder('utf-8').decode(value))
+				processChunk();
+				};
+	
+				processChunk();
+				}
+			).catch(error => {
+				console.error('Error:', error);
+			});
+			this.isTalking = false;
+		} catch (error: any) {
+			this.appendLastMessageContent(error);
+		} finally {
+			this.isTalking = false;
+		}
+		},
+	
+		clearMessageContent() {
+		this.messageContent = ""
+		},
+		scrollToBottom() {
+		let scrollElem = this.$refs.chatListDom;
+		if (!scrollElem) return
+		console.log("scroll", scrollElem.scrollHeight)
+		window.scrollTo({
+			top: scrollElem.scrollHeight, behavior: "smooth"
+		})
+		}
+	}
+	
+	}
+	</code>
+</pre>
 								
 								<h4>
 									Back End
 								</h4>
-								<p>
-									Our backend project uses the classic MVC framework, including database services, data access services, data processing services, and authentication services.
-								</p>
+								<p>Python</p>
+<pre>
+	<code class='python card bg-dark text-light'>
+		
+import openai
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import json
+import time
+import threading
 
-								<strong>
-									- Database Services
-								</strong>
-								<p class="ps-4">
-									Database Services corresponds to M in MVC. This service is used to perform operations on the database, such as adding, deleting, modifying, and querying data. Databases such as <strong>Postgrel SQL</strong>, <strong>MongoDB</strong>, and <strong>Redis</strong> are deployed. Postgrel SQL stores user, device, and service information, and MongoDB stores access data. Redis is used for data caching to improve data processing speed and protect databases.
-								</p>
+# Set the context round to 5 round
+quantity = 10
 
-								<strong>
-									- Data Access Services
-								</strong>
-								<p class="ps-4">
-									Data Access Services corresponds to C in MVC and is used to receive data from devices (including hardware devices and virtual devices). We provide four data access protocols: MQTT, HTTP, and media stream. HTTP is the most widely used. Media streams are mainly used for video data access.
-								</p>
+# Init user infomation
+user_status = [{"id": 0, "start":time.time(), "time": time.time(), "messages": [{"role": "system", "content": "You are a intelligent assistant."}]}]
 
-								<strong>
-									- Data Process Services
-								</strong>
-								<p class="ps-4">
-									Data processing services correspond to V and C in MVC. After a user invokes the data processing microservice on the frontend, the frontend processes the data in the database and returns the processing result to the frontend. The frontend renders the result through the following plug-ins:
-								</p>
+class RequestHandler(BaseHTTPRequestHandler):
+    def do_POST(self):
 
-								<strong>
-									- Authentication Services
-								</strong>
-								<p class="ps-4">
-									The authentication service includes data access authentication and user operation authentication. After a user logs in, the user obtains a JWT token. Each page and service accessed later must carry the token. The token contains the user information and expiration time, which is generally 15 minutes. After data registration, a device ID and key are returned. Each time a device accesses the data, the device needs to carry the ID and key for authentication. Otherwise, the access is rejected.
-								</p>
+        print(self.path)
+        content_length = int(self.headers['Content-Length'])
+        post_data = self.rfile.read(content_length)
 
+        # Get the quetsion and save
+        id = json.loads(post_data)['id']
+        question = json.loads(post_data)['question']
+
+        # Query historical records,
+        # if the user already exists, accumulate questions and update the time,
+        # if the user does not exist, add and insert.
+        if id in [item.get("id") for item in user_status]:
+            data = [item for item in user_status if item["id"] == id]
+
+            # If greater than 5 rounds, delete the oldest.
+            if len(data[0]['messages']) > quantity:
+                data[0]['messages'] = data[0]['messages'][-quantity:]
+
+            # If the interval exceeds 10 minutes, clear the user's history.
+            if time.time() - data[0]['time'] >= 300:
+                data[0]['messages'] = [{"role": "user", "content": question}]
+            else:
+                data[0]['messages'].append({"role": "user", "content": question})
+
+            data[0]['time'] = time.time()
+        else:
+            user_status.append({"id": id, 
+                                "start": time.time(), 
+                                "time": time.time(), 
+                                "messages": [{"role": "system", "content": "You are a intelligent assistant."}, {"role": "user", "content": question}]})
+
+        # Set response headers, enable streaming
+        self.send_response(200)
+        self.send_header('Content-Type', 'text/plain')
+        self.send_header('Transfer-Encoding', 'chunked')
+        self.end_headers()
+
+        # Call openai API
+        openai.api_key = ""
+        messages = [item for item in user_status if item["id"] == id][0]['messages']
+        
+        # Send the data stream chunk by chunk to the client
+        print(messages)
+        response_chunck_list = []
+        for chunk in openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages, stream=True):
+            # Determine if it is the last block
+            if chunk["choices"][0]['finish_reason'] == "stop": 
+                self.wfile.write(b'0\r\n\r\n')
+                self.wfile.flush()
+            else:
+                chunk_content = chunk["choices"][0]['delta']['content']
+                response_chunck_list.append(chunk_content)
+
+                if chunk_content != "":
+                    chunk_content = chunk_content.encode('utf-8')
+                    self.wfile.write(b'%X\r\n%s\r\n' % (len(chunk_content), chunk_content))
+                    self.wfile.flush()
+
+        if id in [item.get("id") for item in user_status]:
+            data = [item for item in user_status if item["id"] == id]
+            data[0]['messages'].append({"role": "assistant", "content": ''.join(response_chunck_list)})
+
+if __name__ == '__main__':
+        print("# start sier server 8998")
+        server = HTTPServer(("0.0.0.0", 8998), RequestHandler)
+        server.serve_forever()   
+  
+	</code>
+</pre>
 								
-								<h4>
-									Data Source
-								</h4>
-								<p>
-									Rich data is the basis for effective data analysis. Our platform supports the access of various data, such as various sensor data, video streams, audio streams, or file imports. Before data access, you need to register on the platform, and then obtain a device ID and key. Every time you send data, you need the ID and key corresponding to the carrier. The data is only allowed to be accessed after the platform verifies it. These data are stored in the MongoDB database.
-								</p>
-
 								<h3 class="mt-4">
 									KEYWORDS
 								</h3>
@@ -165,50 +301,19 @@
 							<h3>EXPERIMENT</h3>
 							<div class="row mb-5">
 								<h4>WEB UI</h4>
-								<p>
-									We have developed our UI pages based on an open source UI template. In addition to aesthetics, we are looking for system stability, security and responsiveness. We have completed the development of some basic pages to implement some basic services, such as user registration, login, device registration, deletion, modification and data display.
-								</p>
 
 								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/dator/login.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 3.</strong> Login Page.
-									</figcaption>
+									<img class="img-responsive" src="assets/img/sier/1.png" alt="" width="100%">
+									<p class="px-3 text-center">
+										<small><strong>Figure 1.</strong> Assist in writing code.</small>
+									</p>
 								</figure>
 
 								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/dator/home.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 4.</strong> Home Page.
-									</figcaption>
-								</figure>
-
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/dator/add.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 5.</strong> Add a new device.
-									</figcaption>
-								</figure>
-
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/dator/list.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 6.</strong> Devices List.
-									</figcaption>
-								</figure>
-
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/dator/data.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 7.</strong> Device Detail.
-									</figcaption>
-								</figure>
-
-								<figure class="figure-img text-center">
-									<img class="img-responsive" src="assets/img/dator/datas.png" alt="" width="100%">
-									<figcaption>
-										<strong>Figure 8.</strong> Data Analysis.
-									</figcaption>
+									<img class="img-responsive" src="assets/img/sier/2.png" alt="" width="100%">
+									<p class="px-3 text-center">
+										<small><strong>Figure 2.</strong> With context memory function.</small>
+									</p>
 								</figure>
 							</div>
 
@@ -224,13 +329,5 @@
 
 
         <footer class="section bg-secondary mt-5 footer"></footer>
-        <script src="assets/js/bootstrap.bundle.min.js"></script>
-        <script>
-            addEventListener("DOMContentLoaded", function() {
-                $(".header").load("components/header.html",function(){});
-                $(".footer").load("components/footer.html",function(){});
-            });
-        </script>
-
     </body>
 </html>

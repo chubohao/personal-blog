@@ -110,8 +110,8 @@
 This work uses the Hikvision camera that supports RTSP protocol, according to the product manual can be known to pull the video stream as shown in the base code 1. To realize multiple pulling cameras, we use a multi-threaded approach.
 </p>
 
-<pre class="hljs card m-2">
-<code>
+<pre>
+<code class='python card bg-dark text-light'>
 import cv2
 # Camera Login Information
 ip='192.168.2.111'
@@ -149,8 +149,8 @@ We used some of the detectors that come with in to detect human bodies, and avat
 </p>
 
 
-<pre class="hljs card m-2">
-<code>
+<pre>
+<code class='python card bg-dark text-light'>
 import cv2
 cv2.namedWindow("Helmet")
 # download from opencv
@@ -182,8 +182,8 @@ while True:
 <p>
 	SHWD provide the dataset used for both safety helmet wearing and human head detection. It includes 7581 images with 9044 human safety helmet wearing objects(positive) and 111514 normal head objects(not wearing or negative). The positive objects got from goolge or baidu, and we manually labeld with LabelImg. Some of negative objects got from SCUT-HEAD. We fixed some bugs for original SCUT-HEAD and make the data can be directly loaded as normal Pascal VOC format. Also we provide some pretrained models with MXNet GluonCV.
 </p>
-<pre class="hljs card m-2">
-<code>
+<pre>
+<code class='python card bg-dark text-light'>
 path: ../datasets/helmet  # dataset root dir
 train: images/train  # train images
 val: images/val      # val images
@@ -214,8 +214,8 @@ After using an annotation tool to label our images, export our labels to YOLO fo
 <br>
 - Class numbers are zero-indexed (start from 0).
 </p>
-<pre class="hljs card m-2">
-<code>
+<pre>
+<code class='python card bg-dark text-light'>
 import numpy as np
 def convert(size, box):
 	"""
@@ -260,8 +260,8 @@ def convert(size, box):
 <p>
 	Organize your train and val images and labels according to the example below. YOLOv5 assumes /coco128 is inside a /datasets directory next to the /yolov5 directory. YOLOv5 locates labels automatically for each image by replacing the last instance of /images/ in each image path with /labels/.
 </p>
-<pre class="hljs card m-2">
-<code>
+<pre>
+<code class='python card bg-dark text-light'>
 ../datasets/helmet/images/im0.jpg  # image
 ../datasets/helmet/labels/im0.txt  # label
 </code>
@@ -294,8 +294,8 @@ def convert(size, box):
 	All training results are saved to runs/train/ with incrementing run directories, i.e. runs/train/exp2, runs/train/exp3 etc. For more details see the Training section of our tutorial notebook.
 </p>
 
-<pre class="hljs card m-2">
-<code>
+<pre>
+<code class='python card bg-dark text-light'>
 python train.py --img 640 --epochs 3 --data helmet.yaml --weights yolov5s.pt
 </code>
 </pre>
@@ -333,10 +333,11 @@ python train.py --img 640 --epochs 3 --data helmet.yaml --weights yolov5s.pt
 								</h4>
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecg/models.png" alt="" width="100%">
+									<p class="px-3 text-center">
+										<small><strong>Figure 3.</strong> YOLOv5 models.</small>
+									</p>
 								</figure>
-								<p class="px-3 text-center">
-									<small><strong>Figure 3.</strong> YOLOv5 models.</small>
-								</p>
+								
 								<figure class="figure-img text-center">
 									<img class="img-responsive" src="assets/img/ecg/yolo_models.png" alt="" width="101%">
 								</figure>
